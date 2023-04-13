@@ -1,0 +1,103 @@
+<template>
+    <lightning-card>
+        <div class="slds-card">
+            <div
+                class="test-id__section slds-section  slds-is-open full forcePageBlockSection forcePageBlockSectionEdit">
+                <h3
+                    class="slds-section__title slds-theme--shade primaryPaletteBorder test-id__section-header-container">
+                    <span
+                        class="test-id__section-header-title section-header-title slds-p-horizontal--small slds-truncate">
+                        {customLabels.label.Student_Form}
+                        <p>Hai vamshi </p>
+                    </span>
+                </h3>
+            </div>
+            <div class="slds-p-around_medium">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_2-of-4">
+                        <div class="slds-col slds-size_3-of-4">
+                            <lightning-input required  label={customLabels.label.Enter_Student_Name} onchange={handleName}></lightning-input>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_2-of-4">
+                        <div class="slds-col slds-size_3-of-4">
+                            <lightning-input required label={customLabels.label.Enter_Roll_Number} disabled={disableinput}
+                             onchange={handleNumber}></lightning-input>
+                        </div>
+                    </div>
+                </div><br />
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_2-of-4">
+                        <div class="slds-col slds-size_3-of-4">
+                            <lightning-combobox  label={customLabels.label.Select_Graduation} options={GpickListvalues}
+                                onchange={handleGraduaction}>
+                            </lightning-combobox>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_2-of-4">
+                        <div class="slds-col slds-size_3-of-4">
+                            <lightning-combobox  label={customLabels.label.Select_Post_Graduation} options={PGpickListvalues}
+                                onchange={handlePGraduation}>
+                            </lightning-combobox>
+                        </div>
+                    </div>
+                </div><br />
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_2-of-4">
+                        <div class="slds-col slds-size_3-of-4">
+                            <lightning-record-edit-form object-api-name={customobjectApiName}>
+                                <label for="fieldid">{customLabels.label.Select_Principal}</label>
+                                <lightning-input-field  id="fieldid"  variant="label-hidden"
+                                    field-name={lookUpFiled} onchange={handleChange}>
+                                </lightning-input-field>
+                            </lightning-record-edit-form>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_2-of-4">
+                        <div class="slds-col slds-size_3-of-4">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-grid">
+                <div class="slds-col slds-size_2-of-4">
+                    <div class="slds-col slds-size_12-of-12">
+                        <div class="slds-clearfix">
+                            <div class="slds-float_right">
+                                <lightning-button  icon-name="utility:list" variant="brand" onclick={handleSave} label={customLabels.label.Save}>
+                                </lightning-button>&nbsp;
+                                <lightning-button icon-name="utility:close" onclick={handleCancel} label={customLabels.label.Cancel}>
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate"></h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                   The Information will be lost
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal} title={customLabels.label.Cancel}>{customLabels.label.Cancel}</button>
+                    <button class="slds-button slds-button_brand" onclick={handlesubmit} title={customLabels.label.Ok}>{customLabels.label.Ok}</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

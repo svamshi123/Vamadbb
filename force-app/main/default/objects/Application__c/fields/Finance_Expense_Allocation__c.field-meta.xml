@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Finance_Expense_Allocation__c</fullName>
+    <description>the amount that each hospital/division uses to pay for Sentara overhead</description>
+    <externalId>false</externalId>
+    <inlineHelpText>the amount that each hospital/division uses to pay for Sentara overhead</inlineHelpText>
+    <label>Finance Expense Allocation %</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

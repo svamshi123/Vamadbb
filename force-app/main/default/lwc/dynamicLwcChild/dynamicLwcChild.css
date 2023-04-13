@@ -1,0 +1,16 @@
+.dummyClass{color:black;}
+
+.slds-popover.slds-nubbin_left{
+    position: absolute;
+    left:0rem;
+    top:-1.3rem;
+}
+.pasteventsScroll {
+    height: auto-flow;
+    overflow-x: auto;
+}
+table{
+   overflow-y:scroll;
+   height:100px;
+   display:block;
+}

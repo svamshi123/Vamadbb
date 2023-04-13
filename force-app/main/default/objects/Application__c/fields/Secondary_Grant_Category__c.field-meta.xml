@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Secondary_Grant_Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Secondary Grant Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Grant_Category__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Access to services</fullName>
+                <default>false</default>
+                <label>Access to services</label>
+            </value>
+            <value>
+                <fullName>Affordable Housing</fullName>
+                <default>false</default>
+                <label>Affordable Housing</label>
+            </value>
+            <value>
+                <fullName>Behavioral Health Services</fullName>
+                <default>false</default>
+                <label>Behavioral Health Services</label>
+            </value>
+            <value>
+                <fullName>Diversity and Inclusion</fullName>
+                <default>false</default>
+                <label>Diversity and Inclusion</label>
+            </value>
+            <value>
+                <fullName>Emergency Shelter</fullName>
+                <default>false</default>
+                <label>Emergency Shelter</label>
+            </value>
+            <value>
+                <fullName>Financial Assistance</fullName>
+                <default>false</default>
+                <label>Financial Assistance</label>
+            </value>
+            <value>
+                <fullName>Financial Counseling Program</fullName>
+                <default>false</default>
+                <label>Financial Counseling Program</label>
+            </value>
+            <value>
+                <fullName>Food and Chronic Disease Management</fullName>
+                <default>false</default>
+                <label>Food and Chronic Disease Management</label>
+            </value>
+            <value>
+                <fullName>Food Pharmacy</fullName>
+                <default>false</default>
+                <label>Food Pharmacy</label>
+            </value>
+            <value>
+                <fullName>Health Education &amp; Literacy</fullName>
+                <default>false</default>
+                <label>Health Education &amp; Literacy</label>
+            </value>
+            <value>
+                <fullName>Health Equity Programs</fullName>
+                <default>false</default>
+                <label>Health Equity Programs</label>
+            </value>
+            <value>
+                <fullName>Healthy Food Pantry Support</fullName>
+                <default>false</default>
+                <label>Healthy Food Pantry Support</label>
+            </value>
+            <value>
+                <fullName>Homelessness prevention</fullName>
+                <default>false</default>
+                <label>Homelessness prevention</label>
+            </value>
+            <value>
+                <fullName>Job Training Programs</fullName>
+                <default>false</default>
+                <label>Job Training Programs</label>
+            </value>
+            <value>
+                <fullName>Literacy and Awareness</fullName>
+                <default>false</default>
+                <label>Literacy and Awareness</label>
+            </value>
+            <value>
+                <fullName>Maternal Health Services</fullName>
+                <default>false</default>
+                <label>Maternal Health Services</label>
+            </value>
+            <value>
+                <fullName>Nutrition Education</fullName>
+                <default>false</default>
+                <label>Nutrition Education</label>
+            </value>
+            <value>
+                <fullName>Oral Health Services</fullName>
+                <default>false</default>
+                <label>Oral Health Services</label>
+            </value>
+            <value>
+                <fullName>Other Educational Programs</fullName>
+                <default>false</default>
+                <label>Other Educational Programs</label>
+            </value>
+            <value>
+                <fullName>Permanent Supportive Housing</fullName>
+                <default>false</default>
+                <label>Permanent Supportive Housing</label>
+            </value>
+            <value>
+                <fullName>Prescription Drug Supplies</fullName>
+                <default>false</default>
+                <label>Prescription Drug Supplies</label>
+            </value>
+            <value>
+                <fullName>Preventative services</fullName>
+                <default>false</default>
+                <label>Preventative services</label>
+            </value>
+            <value>
+                <fullName>Primary, Specialty, and Chronic Disease Health Services</fullName>
+                <default>false</default>
+                <label>Primary, Specialty, and Chronic Disease Health Services</label>
+            </value>
+            <value>
+                <fullName>Scholarships</fullName>
+                <default>false</default>
+                <label>Scholarships</label>
+            </value>
+            <value>
+                <fullName>Supportive services</fullName>
+                <default>false</default>
+                <label>Supportive services</label>
+            </value>
+            <value>
+                <fullName>Transitional Housing</fullName>
+                <default>false</default>
+                <label>Transitional Housing</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Housing</controllingFieldValue>
+            <valueName>Affordable Housing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Housing</controllingFieldValue>
+            <valueName>Emergency Shelter</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Housing</controllingFieldValue>
+            <valueName>Homelessness prevention</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Housing</controllingFieldValue>
+            <valueName>Permanent Supportive Housing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Housing</controllingFieldValue>
+            <valueName>Transitional Housing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Skilled Careers</controllingFieldValue>
+            <valueName>Financial Assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Skilled Careers</controllingFieldValue>
+            <valueName>Financial Counseling Program</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Skilled Careers</controllingFieldValue>
+            <valueName>Job Training Programs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Skilled Careers</controllingFieldValue>
+            <valueName>Scholarships</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Behavioral Health</controllingFieldValue>
+            <controllingFieldValue>Community_Engagement_Education_Other_Social_Determinants</controllingFieldValue>
+            <valueName>Access to services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Behavioral Health</controllingFieldValue>
+            <valueName>Literacy and Awareness</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Behavioral Health</controllingFieldValue>
+            <valueName>Preventative services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Behavioral Health</controllingFieldValue>
+            <valueName>Supportive services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Food Security</controllingFieldValue>
+            <valueName>Food and Chronic Disease Management</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Food Security</controllingFieldValue>
+            <valueName>Food Pharmacy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Food Security</controllingFieldValue>
+            <valueName>Healthy Food Pantry Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Food Security</controllingFieldValue>
+            <valueName>Nutrition Education</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community_Engagement_Education_Other_Social_Determinants</controllingFieldValue>
+            <valueName>Diversity and Inclusion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community_Engagement_Education_Other_Social_Determinants</controllingFieldValue>
+            <valueName>Health Education &amp; Literacy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community_Engagement_Education_Other_Social_Determinants</controllingFieldValue>
+            <valueName>Health Equity Programs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community_Engagement_Education_Other_Social_Determinants</controllingFieldValue>
+            <valueName>Maternal Health Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community_Engagement_Education_Other_Social_Determinants</controllingFieldValue>
+            <valueName>Oral Health Services</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community_Engagement_Education_Other_Social_Determinants</controllingFieldValue>
+            <valueName>Other Educational Programs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Community_Engagement_Education_Other_Social_Determinants</controllingFieldValue>
+            <valueName>Prescription Drug Supplies</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,44 @@
+<template>
+		<template if:true={visible}>
+				<div style="position:absolute;top:1rem;left:1rem;right:1rem">
+						<div class="slds-notify_container slds-is-relative">
+								<div class="slds-notify slds-notify_toast slds-theme_default slds-box slds-box_small" style="border-color:green;" role="success">
+										<div class="slds-align_absolute-center">
+												<h2 class="slds-text-heading_large" style="color:green;">Account Created</h2>
+												<lightning-icon icon-name="utility:success" alternative-text="success" variant="Success" size="small" ></lightning-icon>
+										</div>
+										<div class="slds-float_right">
+												<lightning-icon icon-name="utility:close" alternative-text="close" size="small" onclick={closenotify}></lightning-icon>
+										</div>
+								</div>
+						</div>
+				</div>
+		</template>
+		<template if:true={error}>
+				<div style="position:absolute;top:1rem;left:1rem;right:1rem">
+						<div class="slds-notify_container slds-is-relative">
+								<div class="slds-notify slds-notify_toast slds-theme_default slds-box slds-box_small" style="border-color:red;" role="error">
+										<div class="slds-align_absolute-center">
+												<h2 class="slds-text-heading_large" style="color:red;">Error while Creating record</h2>
+<!-- 												<lightning-icon icon-name="utility:error" alternative-text="Error!" title="Error"></lightning-icon> -->
+										</div>
+										<div class="slds-float_right">
+												<lightning-icon icon-name="utility:close" alternative-text="close" size="small" onclick={closenotify}></lightning-icon>
+										</div>
+								</div>
+						</div>
+				</div>
+		</template>
+		<lightning-card title="CreateRecord" icon-name="standard:record">
+				<div class="slds-m-around_medium">
+						<div class="slds-grid slds-wrap">
+								<div class="slds-p-horizontal--small slds-col slds-size_6-of-12 slds-m-bottom--medium">
+										<div class="slds-form-element">
+												<lightning-input label="Name" onchange={handleNameChange} class="slds-m-bottom_x-small"></lightning-input>
+										</div>
+								</div>
+						</div>
+						<lightning-button label="Create Account" variant="brand" onclick={createAccount}></lightning-button>
+				</div>
+		</lightning-card>
+</template>

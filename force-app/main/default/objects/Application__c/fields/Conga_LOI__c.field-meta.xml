@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Conga_LOI__c</fullName>
+    <externalId>false</externalId>
+    <formula>&quot;&amp;solmgr=1&quot; + 
+&quot;&amp;id=&quot; + Id +
+&quot;&amp;queryid=[LOI]a0I5b00000CpNSBEA3,[Regions]a0I0a00000BGLFqEAP?pv0=&quot; + Id +&quot;,[Objectives]a0I0a00000AAxvj?pv0=&quot; + Id + 
+&quot;&amp;templateid=a0Q0a00000F5vexEAB&quot;  +
+&quot;&amp;qmode=Download&quot; +
+&quot;&amp;OFN=&quot;+  &quot;LOI_&quot;+Account__r.Name</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Conga LOI</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

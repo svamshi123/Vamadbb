@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Invited_to_apply_date__c</fullName>
+    <description>The date we send the invite. Applications due 2 weeks later</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The date we send the invite. Applications due 2 weeks later</inlineHelpText>
+    <label>Invited to Apply Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

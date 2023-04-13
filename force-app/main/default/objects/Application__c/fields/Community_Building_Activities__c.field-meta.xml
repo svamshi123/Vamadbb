@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Community_Building_Activities__c</fullName>
+    <description>Schedule H-990 Part II Community Building Activities
+
+Enter in this part the costs of the organization&apos;s activities that it engaged in during the tax year to protect or improve
+the community&apos;s health or safety, and that aren&apos;t entered in Part I of Schedule H
+
+1 Physical improvements and housing
+2 Economic development
+3 Community support
+4 Environmental improvements
+5 Leadership development and training for community members
+6 Coalition building
+7 Community health improvement advocacy
+8 Workforce development
+9 Other
+
+(a) Number of Activities or programs (Optional)
+(b) Persons served (optional)
+(c) Total Community building Expense 
+(d) Direct offsetting revenue
+(e) Net community building expense
+(f) Percent of total expense
+
+https://www.irs.gov/pub/irs-pdf/i990sh.pdf</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Enter in this part the the organization&apos;s activities that it engaged in during the tax year to protect or improve the community&apos;s health or safety, and that aren&apos;t entered in Part I of Schedule H.
+https://www.irs.gov/pub/irs-pdf/i990sh.pdf</inlineHelpText>
+    <label>Community Building Activities</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1 Physical improvements and housing</fullName>
+                <default>false</default>
+                <label>1 Physical improvements and housing</label>
+            </value>
+            <value>
+                <fullName>2 Economic development</fullName>
+                <default>false</default>
+                <label>2 Economic development</label>
+            </value>
+            <value>
+                <fullName>3 Community support</fullName>
+                <default>false</default>
+                <label>3 Community support</label>
+            </value>
+            <value>
+                <fullName>4 Environmental improvements</fullName>
+                <default>false</default>
+                <label>4 Environmental improvements</label>
+            </value>
+            <value>
+                <fullName>5 Leadership dev/training for comm mbr</fullName>
+                <default>false</default>
+                <label>5 Leadership dev/training for comm mbr</label>
+            </value>
+            <value>
+                <fullName>6 Coalition building</fullName>
+                <default>false</default>
+                <label>6 Coalition building</label>
+            </value>
+            <value>
+                <fullName>7 Community health improvement advocacy</fullName>
+                <default>false</default>
+                <label>7 Community health improvement advocacy</label>
+            </value>
+            <value>
+                <fullName>8 Workforce development</fullName>
+                <default>false</default>
+                <label>8 Workforce development</label>
+            </value>
+            <value>
+                <fullName>9 Other</fullName>
+                <default>false</default>
+                <label>9 Other</label>
+            </value>
+            <value>
+                <fullName>Health professions education</fullName>
+                <default>false</default>
+                <label>Health professions education</label>
+            </value>
+            <value>
+                <fullName>Community Health Improvement Services</fullName>
+                <default>false</default>
+                <label>Community Health Improvement Services</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

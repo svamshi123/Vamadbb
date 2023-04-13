@@ -1,0 +1,89 @@
+.classCSS{
+    /* border: 1px solid #ddd; */
+    background-color: #96dcf4;
+}
+.tdClass{
+    /* border: 1px solid #ddd;  */
+    padding:0;
+    vertical-align:top;
+}
+.tdDivClass{
+    margin-top: -18px;
+}
+.declined{
+    --sds-c-icon-color-foreground-default: grey;
+}
+/* @media only screen and (max-width: 764px) {
+    .slds-col.slds-size_1-of-1 {
+        padding: 0;
+    }
+    .slds-m-around_medium {
+        margin: 0;
+    }
+    .slds-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+    }
+    .slds-table thead {
+        display: none;
+    }
+    .slds-table tbody {
+        display: block;
+    }
+    .slds-table tbody tr {
+        display: block;
+        border-bottom: 1px solid #d8dde6;
+        margin-bottom: 1rem;
+    }
+    .slds-table tbody td {
+        display: block;
+        text-align: left;
+        width: 100%;
+        font-size: 0.875rem;
+        padding: 0.5rem;
+        border: none;
+        position: relative;
+    }
+    .slds-table tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        padding-left: 0.5rem;
+        font-weight: bold;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .slds-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .slds-table thead {
+        display: table-header-group;
+    }
+    .slds-table tbody {
+        display: table-row-group;
+    }
+    .slds-table tbody tr {
+        display: table-row;
+        border-bottom: 1px solid #d8dde6;
+    }
+    .slds-table tbody td {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0.75rem;
+    }
+} */
+/* 
+@media (max-width: 600px) {
+    .slds-scrollable_x {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .slds-table_cell-buffer {
+      white-space: nowrap;
+    }
+  } */

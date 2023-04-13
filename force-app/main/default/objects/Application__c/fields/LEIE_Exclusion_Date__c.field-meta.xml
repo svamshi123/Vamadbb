@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LEIE_Exclusion_Date__c</fullName>
+    <description>OIG maintains a list of all currently excluded individuals and entities called the List of Excluded Individuals/Entities (LEIE). Anyone who hires an individual or entity on the LEIE may be subject to civil monetary penalties (CMP).</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The date the analyst determined that the individual or entity was on the LEIE may be subject to civil monetary penalties (CMP).</inlineHelpText>
+    <label>LEIE Exclusion Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

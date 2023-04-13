@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application_External_ID__c</fullName>
+    <caseSensitive>true</caseSensitive>
+    <description>The previous Salesforce ID - matches to old instance</description>
+    <externalId>true</externalId>
+    <inlineHelpText>The previous Salesforce ID</inlineHelpText>
+    <label>Application External ID</label>
+    <length>50</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

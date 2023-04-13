@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Area__c</fullName>
+    <externalId>false</externalId>
+    <label>Service Area</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Albemarle</fullName>
+                <default>false</default>
+                <label>Albemarle</label>
+            </value>
+            <value>
+                <fullName>Blue Ridge</fullName>
+                <default>false</default>
+                <label>Blue Ridge</label>
+            </value>
+            <value>
+                <fullName>Charlottesville</fullName>
+                <default>false</default>
+                <label>Charlottesville</label>
+            </value>
+            <value>
+                <fullName>Chesapeake Only</fullName>
+                <default>false</default>
+                <label>Chesapeake Only</label>
+            </value>
+            <value>
+                <fullName>Eastern Shore</fullName>
+                <default>false</default>
+                <label>Eastern Shore</label>
+            </value>
+            <value>
+                <fullName>Halifax</fullName>
+                <default>false</default>
+                <label>Halifax</label>
+            </value>
+            <value>
+                <fullName>Hampton Only</fullName>
+                <default>false</default>
+                <label>Hampton Only</label>
+            </value>
+            <value>
+                <fullName>Hampton Roads</fullName>
+                <default>false</default>
+                <label>Hampton Roads</label>
+            </value>
+            <value>
+                <fullName>Harrisonburg</fullName>
+                <default>false</default>
+                <label>Harrisonburg</label>
+            </value>
+            <value>
+                <fullName>Lower Peninsula</fullName>
+                <default>false</default>
+                <label>Lower Peninsula</label>
+            </value>
+            <value>
+                <fullName>National</fullName>
+                <default>false</default>
+                <label>National</label>
+            </value>
+            <value>
+                <fullName>Newport News Only</fullName>
+                <default>false</default>
+                <label>Newport News Only</label>
+            </value>
+            <value>
+                <fullName>Norfolk Only</fullName>
+                <default>false</default>
+                <label>Norfolk Only</label>
+            </value>
+            <value>
+                <fullName>Northern Virginia</fullName>
+                <default>false</default>
+                <label>Northern Virginia</label>
+            </value>
+            <value>
+                <fullName>Peninsula</fullName>
+                <default>false</default>
+                <label>Peninsula</label>
+            </value>
+            <value>
+                <fullName>Portsmouth Only</fullName>
+                <default>false</default>
+                <label>Portsmouth Only</label>
+            </value>
+            <value>
+                <fullName>Richmond</fullName>
+                <default>false</default>
+                <label>Richmond</label>
+            </value>
+            <value>
+                <fullName>Southside</fullName>
+                <default>false</default>
+                <label>Southside</label>
+            </value>
+            <value>
+                <fullName>Statewide</fullName>
+                <default>false</default>
+                <label>Statewide</label>
+            </value>
+            <value>
+                <fullName>Suffolk Only</fullName>
+                <default>false</default>
+                <label>Suffolk Only</label>
+            </value>
+            <value>
+                <fullName>System-Wide</fullName>
+                <default>false</default>
+                <label>System-Wide</label>
+            </value>
+            <value>
+                <fullName>Upper Peninsula</fullName>
+                <default>false</default>
+                <label>Upper Peninsula</label>
+            </value>
+            <value>
+                <fullName>Virginia Beach Only</fullName>
+                <default>false</default>
+                <label>Virginia Beach Only</label>
+            </value>
+            <value>
+                <fullName>Western Tidewater</fullName>
+                <default>false</default>
+                <label>Western Tidewater</label>
+            </value>
+            <value>
+                <fullName>Eastern Region</fullName>
+                <default>false</default>
+                <label>Eastern Region</label>
+            </value>
+            <value>
+                <fullName>Western Region</fullName>
+                <default>false</default>
+                <label>Western Region</label>
+            </value>
+            <value>
+                <fullName>North East North Carolina</fullName>
+                <default>false</default>
+                <label>North East North Carolina</label>
+            </value>
+            <value>
+                <fullName>Rockingham</fullName>
+                <default>false</default>
+                <label>Rockingham</label>
+            </value>
+            <value>
+                <fullName>Central</fullName>
+                <default>false</default>
+                <label>Central</label>
+            </value>
+            <value>
+                <fullName>Eastern NC</fullName>
+                <default>false</default>
+                <label>Eastern NC</label>
+            </value>
+            <value>
+                <fullName>Eastern</fullName>
+                <default>false</default>
+                <label>Eastern</label>
+            </value>
+            <value>
+                <fullName>Northern</fullName>
+                <default>false</default>
+                <label>Northern</label>
+            </value>
+            <value>
+                <fullName>West Central</fullName>
+                <default>false</default>
+                <label>West Central</label>
+            </value>
+            <value>
+                <fullName>Valley</fullName>
+                <default>false</default>
+                <label>Valley</label>
+            </value>
+            <value>
+                <fullName>Southwest</fullName>
+                <default>false</default>
+                <label>Southwest</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

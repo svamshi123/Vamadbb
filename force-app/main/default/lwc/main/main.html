@@ -1,0 +1,67 @@
+<template>
+		<!-- 		<lightning-card> -->
+		<div class="slds-page-header">
+				<div class="slds-page-header__row">
+						<div class="slds-page-header__col-title">
+								<div class="slds-media">
+										<div class="slds-media__figure">
+										</div>
+										<div class="slds-media__body">
+												<div class="slds-page-header__name">
+														<div class="slds-page-header__name-title">
+																<h1>
+																		<span class="slds-page-header__title slds-truncate" >Freedom Space</span>
+																</h1>
+														</div>
+												</div>
+										</div>
+								</div>
+						</div>	
+				</div>
+		</div>
+		<lightning-card class="card">
+				<lightning-tabset class="card" variant="vertical">
+						<lightning-tab label="First Cmp" value="firstcmp">
+								<div class="container">
+										<c-first-cmp ongotosecondcmp={handleSecondCmp}></c-first-cmp>
+								</div>
+						</lightning-tab>
+						<lightning-tab label="Seconf Cmp" value="secondcmp">
+								<div class="container">
+										<c-second-cmp ongotofirstcmp={handleFirstCmp}></c-second-cmp>
+								</div>
+						</lightning-tab>
+						<lightning-tab label="Third Cmp" >
+								<div class="container">
+										<c-student-form></c-student-form>
+								</div>
+						</lightning-tab>
+						<lightning-tab label="Fourth Cmp">
+								<div class="container">
+									<c-object-a></c-object-a>
+								</div>
+						</lightning-tab>
+						<lightning-tab label="Fifth Cmp" >
+								<div class="container">
+										<p>
+												Fifth Cmp
+										</p>
+								</div>
+						</lightning-tab>
+						<lightning-tab label="Sixt Cmp" >
+								<div class="container">
+									<p>
+											Sixth Cmp
+										</p>
+								</div>
+						</lightning-tab>
+						<lightning-tab label="Seventh Cmp" >
+								<div class="container">
+									<p>
+											Seventh Cmp
+										</p>
+								</div>
+						</lightning-tab>
+				</lightning-tabset>
+		</lightning-card>
+</template>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IRS_Form_990_Status__c</fullName>
+    <description>Form 990 is the IRS&apos; primary tool for gathering information about tax-exempt organizations, educating organizations about tax law requirements and promoting compliance Most tax-exempt organizations that have gross receipts of at least $200,000 or assets worth at least $500,000 must file Form 990 on an annual basis. Some organizations, such as political organizations, churches and other religious organizations, are exempt from filing an annual Form 990.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If IRS Form 990 is required select &quot;Not Exempt - Submitted&quot; or &quot;Not Exempt - Not Submitted&quot; otherwise select the corresponding &apos;Exempt&quot; status</inlineHelpText>
+    <label>IRS Form 990 Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Not Exempt - Not Submitted awaiting IRS Form 990</fullName>
+                <default>true</default>
+                <label>Not Exempt - Not Submitted awaiting IRS Form 990</label>
+            </value>
+            <value>
+                <fullName>Not Exempt - Submitted IRS Form 990 on file</fullName>
+                <default>false</default>
+                <label>Not Exempt - Submitted IRS Form 990 on file</label>
+            </value>
+            <value>
+                <fullName>Exempt - Faith Based</fullName>
+                <default>false</default>
+                <label>Exempt - Faith Based</label>
+            </value>
+            <value>
+                <fullName>Exempt - Public/Govt Entity</fullName>
+                <default>false</default>
+                <label>Exempt - Public/Govt Entity</label>
+            </value>
+            <value>
+                <fullName>Exempt - Subsidiaries of other nonprofits</fullName>
+                <default>false</default>
+                <label>Exempt - Subsidiaries of other nonprofits</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

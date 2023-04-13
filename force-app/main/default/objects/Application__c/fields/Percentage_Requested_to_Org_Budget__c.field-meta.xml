@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Percentage_Requested_to_Org_Budget__c</fullName>
+    <description>The percentage of the requested amount to the total budget.</description>
+    <externalId>false</externalId>
+    <formula>IF(
+    OR(
+        ISBLANK(Total_Organization_Budget__c),
+        Total_Organization_Budget__c = 0
+    ), 0 ,
+    Amount_Requested__c / Total_Organization_Budget__c
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The percentage of the requested amount to the total budget.</inlineHelpText>
+    <label>Requested % to Org Budget</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

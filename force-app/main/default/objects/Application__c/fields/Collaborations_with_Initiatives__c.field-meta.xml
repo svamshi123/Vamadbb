@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Collaborations_with_Initiatives__c</fullName>
+    <description>Describe any collaborations with other agencies or community initiatives that assist you in achieving the proposed objectives (2,000 character limit). (e.g. homeless consortium)</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Describe any collaborations with other agencies or community initiatives that assist you in achieving the proposed objectives (2,000 character limit). (e.g. homeless consortium)</inlineHelpText>
+    <label>Collaborations with Initiatives</label>
+    <length>5000</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

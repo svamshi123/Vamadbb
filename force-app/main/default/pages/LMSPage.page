@@ -1,0 +1,56 @@
+<apex:page >
+    <apex:includeScript value="/sforce/one/49.0/api.js"></apex:includeScript>
+    <apex:includeScript value="/soap/ajax/49.0/connection.js"></apex:includeScript>
+    <apex:includeScript value="/soap/ajax/49.0/apex.js"></apex:includeScript>
+    
+    <div>
+        <p>
+            Enter:
+        </p>
+        <input type="text" id="MessageId"/>
+        <button onclick="publishMC()">
+            Publish Msg
+        </button>
+        <br/><br/>
+        <button onclick="subsubscribeMC()">
+            Subscribe
+        </button>
+        <button onclick="unsubsubscribeMC()">
+            Unsubscribe
+        </button>
+        <br/><br/>
+        <p>
+            Received Message:
+        </p>
+        <label id="MCMessageId"/>
+    </div>
+    <script>
+    var MCSample = "{!$MessageChannel.MyMessageChannel__c}";
+    var subscribeToMc;
+    function publishMC(){
+        const message = {
+            messageToSend : document.getElementById("MessageId").value,
+            sourceSystem: "From VF Page"
+        };
+        console.log(message);
+        console.log(MCSample);
+        sforce.one.publish(MCSample,message);
+    }
+    function displayMessage(message){
+        var textlabel = document.querySelector("#MCMessageId");
+        textlabel.innerHTML = message ? JSON.stringify(message,null,'\t'):'no message';
+    }
+    function subsubscribeMC(){
+        if(!subscribeToMc){
+            console.log(MCSample);
+            subscribeToMc = sforce.one.subscribe(MCSample,displayMessage);
+        }
+    }
+    function unsubsubscribeMC(){
+        if(subscribeToMc){
+            sforce.one.unsubscribe(subscribeToMc);
+            subscribeToMc = null;
+        }
+    }
+    </script>
+</apex:page>

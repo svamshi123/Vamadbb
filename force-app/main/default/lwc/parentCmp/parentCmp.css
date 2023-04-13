@@ -1,0 +1,15 @@
+.noBorder{
+    border: none;
+}
+.tdDivClass{
+    margin-top: -18px;
+   
+}
+.inputClass{
+    padding-left: 12px;
+}
+.tdClass{
+    /* border: 1px solid #ddd;  */
+    padding:0;
+    vertical-align:center;
+}

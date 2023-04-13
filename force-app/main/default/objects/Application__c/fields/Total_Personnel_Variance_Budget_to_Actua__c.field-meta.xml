@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Personnel_Variance_Budget_to_Actua__c</fullName>
+    <externalId>false</externalId>
+    <formula>Project_Total_Personnel_Expenses__c  -  Project_Total_Personnel_Requested__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The difference between to the line item total project and the actual dollar amount.</inlineHelpText>
+    <label>Total Personnel Variance Budget to Actua</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

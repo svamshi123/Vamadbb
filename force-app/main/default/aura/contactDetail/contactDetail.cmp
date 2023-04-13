@@ -1,0 +1,13 @@
+<aura:component extends="c:basicDetail"> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <aura:set attribute="objectType" value="Contact" />
+    <aura:set attribute="fields" value="Email,Phone" />
+    
+    <h2>Sub component</h2>
+    <ul>
+        <li>Name from super: {!v.record.Name}</li>
+        <li>Email: <ui:outputEmail value="{!v.record.Email}"/></li>
+        <li>Phone: {!v.record.Phone}</li>
+    </ul>
+</aura:component>

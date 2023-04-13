@@ -1,0 +1,20 @@
+<apex:page controller="OrgPartitionController" action="{!init}">
+
+    <apex:form >
+        <br/>Partition with Namespace Prefix: <apex:inputText value="{!partitionInput}"/>
+        <br/>Counter Key Name: <apex:inputText value="{!counterKeyInput}"/>
+        <br/>Counter Initial Value: <apex:inputText value="{!counterInitValue}"/>
+        <apex:commandButton action="{!save}" value="Save Key Input Values"/>
+    </apex:form>
+
+    <apex:outputPanel id="output">
+        <br/>Cached Counter: <apex:outputText value="{!counter}"/>
+    </apex:outputPanel>
+    
+    <br/>
+    <apex:form >
+        <apex:commandButton id="go" action="{!go}" value="Rerender" rerender="output"/>
+        <apex:commandButton id="remove" action="{!remove}" value="Remove Key" rerender="output"/>
+    </apex:form>
+
+</apex:page>

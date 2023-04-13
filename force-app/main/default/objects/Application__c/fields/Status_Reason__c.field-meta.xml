@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status_Reason__c</fullName>
+    <description>This is a list of reasons to qualify the status</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Optional-Select the reason that best fits the status</inlineHelpText>
+    <label>Application Status Reason</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Approved: Awaiting budget approval</fullName>
+                <default>false</default>
+                <label>Approved: Awaiting budget approval</label>
+            </value>
+            <value>
+                <fullName>Approved: Awaiting funding approval</fullName>
+                <default>false</default>
+                <label>Approved: Awaiting funding approval</label>
+            </value>
+            <value>
+                <fullName>Approved: Scheduled for next quarter</fullName>
+                <default>false</default>
+                <label>Approved: Scheduled for next quarter</label>
+            </value>
+            <value>
+                <fullName>Approved: Committee</fullName>
+                <default>false</default>
+                <label>Approved: Committee</label>
+            </value>
+            <value>
+                <fullName>Approved: Executive validation not committee</fullName>
+                <default>false</default>
+                <label>Approved: Executive validation not committee</label>
+            </value>
+            <value>
+                <fullName>Denial: Recently funding/pending report</fullName>
+                <default>false</default>
+                <label>Denial: Recently funding/pending report</label>
+            </value>
+            <value>
+                <fullName>Denial: Not aligned with focus areas/strategy</fullName>
+                <default>false</default>
+                <label>Denial: Not aligned with focus areas/strategy</label>
+            </value>
+            <value>
+                <fullName>Denial: Incomplete application or untimely</fullName>
+                <default>false</default>
+                <label>Denial: Incomplete application or untimely</label>
+            </value>
+            <value>
+                <fullName>Denial: Budget/Project scope concerns</fullName>
+                <default>false</default>
+                <label>Denial: Budget/Project scope concerns</label>
+            </value>
+            <value>
+                <fullName>Denial: Duplicative proposal</fullName>
+                <default>false</default>
+                <label>Denial: Duplicative proposal</label>
+            </value>
+            <value>
+                <fullName>Denial: Committee or Executive denial</fullName>
+                <default>false</default>
+                <label>Denial: Committee or Executive denial</label>
+            </value>
+            <value>
+                <fullName>Denial: Out of service area</fullName>
+                <default>false</default>
+                <label>Denial: Out of service area</label>
+            </value>
+            <value>
+                <fullName>Denial: Forwarded to Hospital/Other entity for funding consideration</fullName>
+                <default>false</default>
+                <label>Denial: Forwarded to Hospital/Other entity for funding consideration</label>
+            </value>
+            <value>
+                <fullName>Denial: Other</fullName>
+                <default>false</default>
+                <label>Denial: Other</label>
+            </value>
+            <value>
+                <fullName>Sentara Sponsorship Approved</fullName>
+                <default>false</default>
+                <label>Sentara Sponsorship Approved</label>
+            </value>
+            <value>
+                <fullName>Follow-up: Approval request rejected</fullName>
+                <default>false</default>
+                <label>Follow-up: Approval request rejected</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

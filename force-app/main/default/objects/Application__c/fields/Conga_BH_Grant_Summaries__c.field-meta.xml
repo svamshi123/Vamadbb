@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Conga_BH_Grant_Summaries__c</fullName>
+    <externalId>false</externalId>
+    <formula>&quot;&amp;solmgr=1&quot; + 
+&quot;&amp;id=&quot; + Id + 
+&quot;&amp;queryid=[CRCommunity]a0I0a00000AAxvZ,[Budget]a0I0a00000AAxve?pv0=&quot; + Id + &quot;,[Objectives]a0I0a00000AAxvj?pv0=&quot; + Id + &quot;,[Funders]a0I0a00000AAxvo?pv0=&quot; + Id + &quot;,[Staffing]a0I0a00000AAxvp?pv0=&quot; + Id + 
+&quot;&amp;templateid=a0Q0a00000FnXhcEAF&quot;  + 
+&quot;&amp;qmode=Download&quot; + 
+&quot;&amp;OFN=&quot;+ TEXT(View_Order__c) +&quot;_&quot;+Account__r.Name</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Conga BH Grant Summaries</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

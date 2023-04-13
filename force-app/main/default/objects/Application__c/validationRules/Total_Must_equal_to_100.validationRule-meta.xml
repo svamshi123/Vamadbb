@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Must_equal_to_100</fullName>
+    <active>true</active>
+    <errorConditionFormula>Total_must_be_100__c  = 100</errorConditionFormula>
+    <errorMessage>The Total must be 100</errorMessage>
+</ValidationRule>

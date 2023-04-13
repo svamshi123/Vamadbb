@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Grant_Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Grant Category</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Housing</fullName>
+                <default>false</default>
+                <label>Housing</label>
+            </value>
+            <value>
+                <fullName>Behavioral Health</fullName>
+                <default>false</default>
+                <label>Behavioral Health</label>
+            </value>
+            <value>
+                <fullName>Food Security</fullName>
+                <default>false</default>
+                <label>Food Security</label>
+            </value>
+            <value>
+                <fullName>Skilled Careers</fullName>
+                <default>false</default>
+                <label>Skilled Careers</label>
+            </value>
+            <value>
+                <fullName>Community_Engagement_Education_Other_Social_Determinants</fullName>
+                <default>false</default>
+                <label>Community Engagement, Education, Other Social Determinants</label>
+            </value>
+            <value>
+                <fullName>Marketing</fullName>
+                <default>false</default>
+                <label>Marketing</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Direct Patient Care</fullName>
+                <default>false</default>
+                <label>Direct Patient Care</label>
+            </value>
+            <value>
+                <fullName>Public Health</fullName>
+                <default>false</default>
+                <label>Public Health</label>
+            </value>
+            <value>
+                <fullName>Health Equity</fullName>
+                <default>false</default>
+                <label>Health Equity</label>
+            </value>
+            <value>
+                <fullName>University Collaboration</fullName>
+                <default>false</default>
+                <label>University Collaboration</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

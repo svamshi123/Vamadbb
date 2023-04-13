@@ -1,0 +1,21 @@
+<template>
+		<div class="slds-m-around_medium">
+				<lightning-combobox  label="Subject" value={value} options={options}
+														onchange={handleSubjectOptions}>
+				</lightning-combobox><br/>
+				<lightning-input type="datetime" onchange={handleStartDateTimeChange}  label="Start" required></lightning-input><br/>
+				<lightning-input type="datetime" onchange={handleEndDateTimeChange}  label="End" required></lightning-input><br/>
+				<label class="slds-form-element__label slds-no-flex">Name</label>
+				<c-custom-look-up object-name="Contact" field-name="Name" icon-name="action:new_contact" onselected={handleconLookup} ></c-custom-look-up><br/>
+				<label class="slds-form-element__label slds-no-flex">Related To</label>
+				<c-custom-look-up object-name="Account" field-name="Name" icon-name="action:new_account" onselected={handleaccLookup}></c-custom-look-up><br/>
+				<label class="slds-form-element__label slds-no-flex">Assigned To</label>
+				<c-custom-look-up object-name="User" field-name="Name" icon-name="standard:avatar" onselected={handleuseLookup}></c-custom-look-up><br/>
+				<lightning-input label="Location" onchange={handlelocation}></lightning-input>
+		</div>
+		<div class="slds-clearfix">
+				<div class="slds-float_right">
+						<lightning-button label="Create" variant="brand" onclick={createEvebt}></lightning-button>
+				</div>
+		</div>
+</template>

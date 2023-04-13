@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Grant Budget">
+        <template if:true={personnelExpenses}>
+            <c-grand-budget col-value={personnelExpenses} column-data={column} total-name="Total: Personnel" onpersonalexpenses={handlePersonalEvent}></c-grand-budget>
+        </template>
+        <template if:true={otherDirectExpenses}>
+            <c-grand-budget col-value={otherDirectExpenses} column-data={column} total-name="Total: Direct Expenses" onotherexpenses={handleOtherEvent}></c-grand-budget>
+        </template>
+        <template if:true={administrativeExpenses}>
+            <c-grand-budget col-value={administrativeExpenses} column-data={column} total-name="Total: Administrative" onadminexpenses={handleAdminEvent}></c-grand-budget>
+        </template>
+        <div>
+            <c-other-funding-resource onotherfunding={handleOtherFunding}></c-other-funding-resource>
+        </div>
+        <div class="slds-m-around_medium">
+            <button class="slds-button slds-button_brand slds-button_stretch" onclick={createGrantBudget}>Submit</button>
+        </div>
+    </lightning-card>
+</template>

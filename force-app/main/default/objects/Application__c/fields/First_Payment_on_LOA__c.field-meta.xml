@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>First_Payment_on_LOA__c</fullName>
+    <defaultValue>true</defaultValue>
+    <description>Does the first payment occur immediately after the LOA is approved?</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Does the first payment occur immediately after the LOA is approved?</inlineHelpText>
+    <label>First Payment on LOA</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

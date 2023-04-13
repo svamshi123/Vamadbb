@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Marketing_Examples__c</fullName>
+    <description>Please provide examples of internal or external communications where Sentara is mentioned such as links, press releases, social media posts, photos, etc</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Please provide examples of internal or external communications where Sentara is mentioned such as links, press releases, social media posts, photos, etc</inlineHelpText>
+    <label>Marketing Examples</label>
+    <length>20000</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

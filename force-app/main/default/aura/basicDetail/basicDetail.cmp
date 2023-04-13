@@ -1,0 +1,21 @@
+<aura:component extensible="true"  controller="RecordController">
+    <aura:attribute name="record" type="Object" description="The record being displayed."/>
+    <aura:attribute name="standardFields" type="String" default="Id,Name,LastModifiedDate,LastModifiedBy.Name" description="These fields are always present."/>
+
+    <!-- set by sub components -->
+    <aura:attribute name="recordId" type="Id" description="The Id of the record" required="true" />
+    <aura:attribute name="objectType" type="String" description="The object type of the record"/>
+    <aura:attribute name="fields" type="String" description="Fields for the object" default="Id,Name"/>
+        
+    <h1><ui:outputText value="{!v.record.Name}"/></h1>
+    
+    <!-- contents of the sub component -->
+    <div>{!v.body}</div>
+    
+    <!-- Always show for every record -->
+    <h2>System Information</h2>
+    <ul>
+    	<li>Last Modified By: <ui:outputText value="{!v.record.LastModifiedBy.Name}" /></li>
+        <li>Last Modified Date: <ui:outputDateTime value="{!v.record.LastModifiedDate}" /></li>
+    </ul>
+</aura:component>

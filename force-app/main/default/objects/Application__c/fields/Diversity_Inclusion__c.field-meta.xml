@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Diversity_Inclusion__c</fullName>
+    <description>Has your organization developed a plan to address diversity, equity, &amp; inclusion? If so, please explain your efforts.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Has your organization developed a plan to address diversity, equity, &amp; inclusion? If so, please explain your efforts.</inlineHelpText>
+    <label>Diversity Inclusion</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

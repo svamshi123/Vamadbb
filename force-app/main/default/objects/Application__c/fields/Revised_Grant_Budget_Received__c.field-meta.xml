@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Revised_Grant_Budget_Received__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>When an organization submits a new budget based on a smaller or larger award amount, it is usually added as an attachment. If this is checked, we need to look for attachments with new budgets</description>
+    <externalId>false</externalId>
+    <inlineHelpText>When an organization submits a new budget based on a smaller or larger award amount, it is usually added as an attachment. If this is checked, we need to look for attachments with new budgets</inlineHelpText>
+    <label>Revised Grant Budget Received</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

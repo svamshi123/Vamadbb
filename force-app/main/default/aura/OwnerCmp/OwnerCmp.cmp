@@ -1,0 +1,8 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    <!--OwnerComp-->
+    <h2>Hai</h2>
+    <aura:handler name="bubbleCaptureEvent" event="c:bubbleCaptureEvent" action="{!c.handleCapture}" phase="capture"/>
+	<aura:handler name="bubbleCaptureEvent" event="c:bubbleCaptureEvent" action="{!c.handleBubbling}" />
+    
+    <c:ownerCompCont/>
+</aura:component>

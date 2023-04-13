@@ -1,0 +1,17 @@
+<template>  
+    <div class="slds-box slds-theme_shade">  
+     <lightning-input type="number" class="input1" name="input2" label="Number 1" onchange={handleNumberOeChange} value={firstNumber}></lightning-input>  
+     <lightning-input type="number" class="input2" name="input2" label="Number 2" onchange={handleNumberTwoChange} value={secondNumber}></lightning-input>  
+   </div>
+   <div class="slds-box slds-theme_shade">  
+        <b>Output value is : </b>   
+        <P>{resultValue}</p>
+        <lightning-button label="Multiplication" onclick={multiplication}> </lightning-button>
+  </div> 
+    <div class="slds-box slds-theme_shade">  
+        <lightning-input type="Email" class="input2" name="input2" label="Enter Email" onchange={handleEmailChange}></lightning-input>  
+    </div> 
+    <div class="slds-box slds-theme_shade">  
+        <lightning-button variant="brand" label="Brand" title="save" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+    </div>
+</template>
