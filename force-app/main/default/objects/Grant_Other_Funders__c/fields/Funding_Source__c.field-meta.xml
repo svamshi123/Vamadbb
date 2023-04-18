@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Funding_Source__c</fullName>
+    <externalId>false</externalId>
+    <label>Funding Source</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sentara</fullName>
+                <default>false</default>
+                <label>Sentara</label>
+            </value>
+            <value>
+                <fullName>Sentara Artifacts</fullName>
+                <default>false</default>
+                <label>Sentara Artifacts</label>
+            </value>
+            <value>
+                <fullName>Other Funding Source</fullName>
+                <default>false</default>
+                <label>Other Funding Source</label>
+            </value>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

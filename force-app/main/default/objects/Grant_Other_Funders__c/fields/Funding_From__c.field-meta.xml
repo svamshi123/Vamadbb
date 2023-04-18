@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Funding_From__c</fullName>
+    <externalId>false</externalId>
+    <label>Funding From</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Funding_Source__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sentara Corporate</fullName>
+                <default>false</default>
+                <label>Sentara Corporate</label>
+            </value>
+            <value>
+                <fullName>Sentara Hospital</fullName>
+                <default>false</default>
+                <label>Sentara Hospital</label>
+            </value>
+            <value>
+                <fullName>Optima Health</fullName>
+                <default>false</default>
+                <label>Optima Health</label>
+            </value>
+            <value>
+                <fullName>Virginia Premier</fullName>
+                <default>false</default>
+                <label>Virginia Premier</label>
+            </value>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Sentara</controllingFieldValue>
+            <controllingFieldValue>Sentara Artifacts</controllingFieldValue>
+            <controllingFieldValue>Other Funding Source</controllingFieldValue>
+            <valueName>Sentara Corporate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sentara</controllingFieldValue>
+            <controllingFieldValue>Sentara Artifacts</controllingFieldValue>
+            <controllingFieldValue>Other Funding Source</controllingFieldValue>
+            <valueName>Sentara Hospital</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sentara</controllingFieldValue>
+            <controllingFieldValue>Sentara Artifacts</controllingFieldValue>
+            <controllingFieldValue>Other Funding Source</controllingFieldValue>
+            <valueName>Optima Health</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Sentara</controllingFieldValue>
+            <controllingFieldValue>Sentara Artifacts</controllingFieldValue>
+            <controllingFieldValue>Other Funding Source</controllingFieldValue>
+            <valueName>Virginia Premier</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Funding Source</controllingFieldValue>
+            <valueName>Others</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>
