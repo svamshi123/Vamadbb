@@ -1,9 +1,10 @@
 public with sharing class OtherFundingResourceCtrl {
-    
+    public static String ESIGN_DOCUMENT = 'EsignDisclaimer';  
     @AuraEnabled
     public static string createFundingResource(String resourceData){
         // try {
             Boolean isNoException = false;
+            System.debug('resourceData'+resourceData);
             List<ObjectWrapperClass> objectList = (List<ObjectWrapperClass>) JSON.deserialize(resourceData,List<ObjectWrapperClass>.class);
             System.debug('objectList' + objectList);
             List<Grant_Other_Funders__c> otherResourceList = new List<Grant_Other_Funders__c>();
@@ -11,14 +12,16 @@ public with sharing class OtherFundingResourceCtrl {
                 Grant_Other_Funders__c gor = new Grant_Other_Funders__c();
                 gor.Prior_Year_Fund_Source__c = owc.fundingSource;
                 if(owc.otherFunders != ''){
-                    gor.Funder_Name__c = owc.otherFunders;
+                    gor.Funder_Name__c = owc.otherFunders != null ? owc.otherFunders : '';
                 }else{
-                    gor.Funder_Name__c = owc.fundingForm;
+                    gor.Funder_Name__c = owc.fundingForm != null ? owc.fundingForm : '';
                 }
-                gor.Funding_Project_Name__c = owc.nameOftheProj;
-                gor.Funding_Amount__c = owc.amountAwarded;
-                gor.Request_Status__c = owc.statusOfRequest;
-                gor.Funding_Start_Date__c = owc.startDateofFunding;
+                gor.Funding_Project_Name__c = owc.nameOftheProj != null ? owc.nameOftheProj : '';
+                gor.Funding_Amount__c = owc.amountAwarded != null ? owc.amountAwarded : 0.00;
+                gor.Request_Status__c = owc.statusOfRequest != null ? owc.statusOfRequest : '';
+                if(!String.isBlank(owc.startDateofFunding)){
+                    gor.Funding_Start_Date__c = Date.valueOf(owc.startDateofFunding);
+                }
                 otherResourceList.add(gor);
             }
             if(otherResourceList != null && !otherResourceList.isEmpty()){
@@ -98,9 +101,86 @@ public with sharing class OtherFundingResourceCtrl {
         // }
     }
 
+    @AuraEnabled
+    public static string getAttchmentDetails(string parId){
+        list<FileInfo> fileList = new list<FileInfo>();   
+        List<ContentDocumentLink> contentDocList = [SELECT ContentDocumentId, ContentDocument.Title, 
+        ContentDocument.LatestPublishedVersionId, ContentDocument.ContentSize, ContentDocument.LatestPublishedVersion.Title, ContentDocument.LatestPublishedVersion.VersionNumber
+        FROM ContentDocumentLink
+        WHERE LinkedEntityId =: parId];
+
+        for(ContentDocumentLink conlink: contentDocList){
+            FileInfo fileData = new FileInfo();
+            fileData.docId = conlink.ContentDocumentId;
+            fileData.Title = conlink.ContentDocument.Title;           
+            fileData.size = FileSizeToString(conlink.ContentDocument.ContentSize);
+            fileList.add(fileData);
+        }
+
+        String fileJSON = JSON.serialize(fileList);
+        return fileJSON;
+    }
+
+    public static String FileSizeToString(Long Value){
+        if (Value < 1024){
+            return string.valueOf(Value) + ' Bytes';
+        }else if (Value >= 1024 && Value < (1024*1024)) {
+            //KB
+            Decimal kb = Decimal.valueOf(Value);
+            kb = kb.divide(1024,2);
+            return string.valueOf(kb) + ' KB';
+        }
+        else if (Value >= (1024*1024) && Value < (1024*1024*1024)){
+            //MB
+            Decimal mb = Decimal.valueOf(Value);
+            mb = mb.divide((1024*1024),2);
+            return string.valueOf(mb) + ' MB';
+        }
+        else{
+            //GB
+            Decimal gb = Decimal.valueOf(Value);
+            gb = gb.divide((1024*1024*1024),2);  
+            return string.valueOf(gb) + ' GB';
+        }    
+    }    
+
+    @AuraEnabled
+    public static string deleteSingleAttachment(string attchmentID){
+        set<id> setIDs = new set<id>();
+        List<ContentDocumentLink> contentDocLinkList = [SELECT Id,ContentDocumentId FROM ContentDocumentLink where ContentDocumentId =: attchmentID];
+        for(ContentDocumentLink conlink: contentDocLinkList){
+            setIDs.add(conlink.ContentDocumentId);
+        }
+        List<ContentDocument> conDocList = [SELECT Id,IsDeleted,Title,Description FROM ContentDocument WHERE Id IN :setIDs AND IsDeleted = false];
+        if(conDocList != null && conDocList.size()>0){
+           delete conDocList;
+        }
+        return conDocList[0].Id;
+    }
+
+    @AuraEnabled
+    public static Map<String,String> getBodyOfConsent(){
+        Map<String,String> result = new Map<String,String>();
+        try {
+            List<Contentversion> cvList = [SELECT Id, ContentDocumentId,VersionData FROM ContentVersion WHERE Title = :ESIGN_DOCUMENT ORDER BY CreatedDate DESC];
+            if(!cvList.isEmpty()){
+                result.put('Id',cvList[0].Id);
+                result.put('disclaimer',cvList[0].VersionData.toString());
+            }
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+        return result;
+    }
+
+    public class FileInfo {  
+        public string docId;   
+        public String Title;
+        public string Size;
+    }
+
     public class ObjectWrapperClass{
-        @AuraEnabled
-        public Integer Id;
+        
         @AuraEnabled
         public string fundingSource;
         @AuraEnabled
@@ -114,7 +194,7 @@ public with sharing class OtherFundingResourceCtrl {
         @AuraEnabled
         public string statusOfRequest;
         @AuraEnabled
-        public Date startDateofFunding;
+        public String startDateofFunding;
     }
 
     public class GrandtFundersWrapperCalss{

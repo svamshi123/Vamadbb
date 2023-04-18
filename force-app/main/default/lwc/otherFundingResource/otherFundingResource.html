@@ -1,4 +1,4 @@
-<template>
+<template> 
     <div class="slds-scrollable_y" style="max-height: 400px; overflow: auto;">
     <lightning-card title="Funding Sources">
         <div class="slds-grid slds-wrap">
@@ -77,9 +77,17 @@
                                     </td>
                                     <td class="slds-size_1-of-9 tdClass">
                                         <div class="tdDivClass">
-                                            <lightning-combobox options={funderFromOptions} name="fundingForm" value={row.fundingForm}  data-id={row.Id}
-                                                onchange={handleChange}>
-                                            </lightning-combobox>
+                                            <template if:false={row.isOtherFunderForm}>
+                                                 <lightning-combobox options={funderFromOptions} name="fundingForm" value={row.fundingForm}  data-id={row.Id}
+                                                    onchange={handleChange}>
+                                                </lightning-combobox>
+                                            </template>
+                                            <template if:true={row.isOtherFunderForm}>
+                                                <lightning-combobox options={otherFunderFromOptions} name="fundingForm" value={row.fundingForm}  data-id={row.Id}
+                                                   onchange={handleChange}>
+                                               </lightning-combobox>
+                                           </template>
+                                           
                                         </div>
                                     </td>
                                     <td class="slds-size_1-of-9 tdClass">
@@ -143,4 +151,9 @@
     </lightning-card>
 </div>
 </template>
+
+
+
+
+  
   

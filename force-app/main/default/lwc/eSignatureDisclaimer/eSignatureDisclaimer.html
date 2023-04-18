@@ -1,0 +1,13 @@
+<template>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="11" flexibility="auto" padding="horizontal-small" class="slds-text-align_left">
+        <div class="slds-form-element__label">Disclaimer:</div>
+            <div class="mainBlock slds-box slds-box_xx-small" data-id="mainBlock" >
+                <lightning-formatted-rich-text value={disClaimerText}></lightning-formatted-rich-text>
+            </div>
+            <div class="slds-size_1-of-1">
+                <lightning-input type="checkbox" variant="label-stacked" label="Agree" field-level-help={esignatureHelptext} value={disclaimerValue} onchange={handleCheck}></lightning-input>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

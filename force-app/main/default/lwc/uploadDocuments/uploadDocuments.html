@@ -1,0 +1,23 @@
+<template>
+    <div title={labelName}>
+        <lightning-file-upload
+            label={labelName}
+            name="fileUploader"
+            record-id={parentRecord}
+            onuploadfinished={handleUploadFinished}
+            multiple>
+        </lightning-file-upload>
+        <template if:true={fileuploaded}>
+            <ul>                        
+                <template for:each={fileuploaded} for:item="filevalue">                                                     
+                    <div class="slds-box slds-theme_shade slds-clearfix slds-box_x-small slds-m-vertical_x-small" key={filevalue.docId}>                        
+                        <p>
+                            <a>{filevalue.Title} &nbsp;{filevalue.Size}</a>
+                            <lightning-button-icon value={filevalue.docId} class="slds-float_right" icon-name="utility:close" variant="bare" slot="actions" onclick={removeAttachment}></lightning-button-icon>
+                        </p>
+                    </div>                        
+                </template>
+            </ul>
+        </template>
+    </div>
+</template>

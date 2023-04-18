@@ -16,17 +16,19 @@ export default class OtherFundingResource extends LightningElement {
     fromOption;
     showRequired = false;
     isOtherFunderRequired = false;
-
+    funderFromOptions;
+    otherFunderFromOptions;
     @track rows = [{
         Id: 0, 
         fundingSource:'', 
         fundingForm: '', 
         otherFunders:'',
         nameOftheProj: '', 
-        amountAwarded: '', 
+        amountAwarded: 0.0, 
         statusOfRequest:'',
         startDateofFunding: '',
-        disableOtherFunders : false
+        disableOtherFunders : false,
+        isOtherFunderForm : false
     }];
 
 
@@ -99,9 +101,27 @@ export default class OtherFundingResource extends LightningElement {
         let rowId = event.target.dataset.id;
         let rowIndex = this.rows.findIndex((row) => row.Id == rowId);
         this.rows[rowIndex][fieldName] = fieldValue;
-        let key = this.fromOption.controllerValues[fieldValue];
-        this.funderFromOptions = this.fromOption.values.filter((row) => row.validFor.includes(key));
+        if(fieldValue === 'Other Funding Source'){
+            this.rows[rowIndex].isOtherFunderForm = true;
+            let key = this.fromOption.controllerValues[fieldValue];
+            this.otherFunderFromOptions = this.fromOption.values.filter((row) => row.validFor.includes(key));
+        }else{
+            this.rows[rowIndex].isOtherFunderForm = false;
+            let key = this.fromOption.controllerValues[fieldValue];
+            this.funderFromOptions = this.fromOption.values.filter((row) => row.validFor.includes(key));
+        }
+       
+      
 
+        if(fieldValue === 'None'){
+            this.showRequired = false;
+            this.rows[rowIndex]['fundingForm'] = '';
+            this.rows[rowIndex]['otherFunders'] = '';
+            this.rows[rowIndex]['nameOftheProj'] = '';
+            this.rows[rowIndex]['amountAwarded'] = parseFloat('0.00');
+            this.rows[rowIndex]['statusOfRequest'] = '';
+            this.rows[rowIndex]['startDateofFunding'] = '';
+        }
         this.handleOtherSetValues(this.rows);
        
     }

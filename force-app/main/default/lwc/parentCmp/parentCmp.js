@@ -1,7 +1,8 @@
-import { LightningElement, wire,api } from 'lwc';
+import { LightningElement, wire,api ,track} from 'lwc';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
 
 import GRANT_OBJECT from '@salesforce/schema/Grant_Budget__c';
@@ -30,6 +31,7 @@ export default class ParentCmp extends LightningElement {
     totalAllColactualGrantExpenses = 0;
     totalAllColdiff = 0;
     totalAllColpercentage = 0;
+    submitDisabled = true;
    
     column = [
         {label: '<span style="color: red; ">*</span> Total Budget',fieldName:'Total Budget'},
@@ -38,7 +40,7 @@ export default class ParentCmp extends LightningElement {
         {label: 'Actual Grant Expenses',fieldName:'Actual Grant Expenses'},
         {label: 'Var $',fieldName:'Var $'},
         {label: 'Var %',fieldName:'Var %'},
-        {label: ' ',fieldName:' '}
+        // {label: ' ',fieldName:' '}
     ];
 
     @wire(getObjectInfo, { objectApiName: GRANT_OBJECT })
@@ -69,7 +71,7 @@ export default class ParentCmp extends LightningElement {
             }
         });
         this.otherFunding.forEach(e =>{
-            if(e.fundingSource !== null && e.fundingSource !== '' && e.fundingSource !== undefined){
+            if(e.fundingSource !== null && e.fundingSource !== 'None' && e.fundingSource !== undefined){
                 if(e.fundingForm === '' || e.nameOftheProj === '' || e.amountAwarded === '' || e.statusOfRequest === '' || e.startDateofFunding === '' ||
                 e.fundingForm === null || e.nameOftheProj === null || e.amountAwarded === null || e.statusOfRequest === null || e.startDateofFunding === null){
                     othercheckEmptyVal.push(true)
@@ -88,7 +90,8 @@ export default class ParentCmp extends LightningElement {
             createGrnatBudgetRecords({resourceData:JSON.stringify(finalList),parRecId: this.parentRecord,directMap: this.directMap,
                 adminMap:this.adminMap,personalMap:this.personalMap,otherFundingSrc:JSON.stringify(this.otherFunding)}).then((data) => {
                 console.log({data});
-                if(data !== '' && data !== null){
+                if(data !== '' && data !== null && data.length > 0){
+                    this.closeFlow();
                     this.dispatchEvent(
                         new ShowToastEvent({
                             title: 'Success',
@@ -99,7 +102,7 @@ export default class ParentCmp extends LightningElement {
                 }
             }).catch((error) =>{
                 console.log({error});
-                his.dispatchEvent(
+                this.dispatchEvent(
                     new ShowToastEvent({
                         title: 'Error',
                         message: error.body.message,
@@ -110,6 +113,12 @@ export default class ParentCmp extends LightningElement {
         }
     }
 
+    closeFlow(){
+        const closeAction = { type: "FLOW_FINISH" };
+        const closeFlowEvent = new FlowNavigationFinishEvent(closeAction);
+        this.dispatchEvent(closeFlowEvent);
+    }
+    
     handleOtherEvent(event){
         this.directExpenses = event.detail;
         let getlastIndex = this.directExpenses.length - 1;
@@ -149,5 +158,8 @@ export default class ParentCmp extends LightningElement {
     }
     handleOtherFunding(event){
         this.otherFunding = event.detail;
+    }
+    handleCheckboxclick(event){
+        this.submitDisabled = !event.detail.checked;
     }
 }
