@@ -1,16 +1,19 @@
 <template>
     <lightning-card title="Grant Budget">
         <template if:true={personnelExpenses}>
-            <c-grand-budget col-value={personnelExpenses} column-data={column} total-name="Total: Personnel" onpersonalexpenses={handlePersonalEvent}></c-grand-budget>
+            <c-grand-budget class="personnelExpenses" col-value={personnelExpenses} column-data={column} total-name="Total: Personnel" rows={rows} 
+            parent-record={parentRecord} ></c-grand-budget>
         </template>
         <template if:true={otherDirectExpenses}>
-            <c-grand-budget col-value={otherDirectExpenses} column-data={column} total-name="Total: Direct Expenses" onotherexpenses={handleOtherEvent}></c-grand-budget>
+            <c-grand-budget class="otherDirectExpenses" col-value={otherDirectExpenses} column-data={column} total-name="Total: Direct Expenses" 
+            parent-record={parentRecord} ></c-grand-budget>
         </template>
         <template if:true={administrativeExpenses}>
-            <c-grand-budget col-value={administrativeExpenses} column-data={column} total-name="Total: Administrative" onadminexpenses={handleAdminEvent}></c-grand-budget>
+            <c-grand-budget class="administrativeExpenses" col-value={administrativeExpenses} column-data={column} 
+            parent-record={parentRecord} total-name="Total: Administrative" ></c-grand-budget>
         </template>
         <div>
-            <c-other-funding-resource onotherfunding={handleOtherFunding}></c-other-funding-resource>
+            <c-other-funding-resource onotherfunding={handleOtherFunding}  is-clear-storage={isClearStorage}></c-other-funding-resource>
         </div>
         <lightning-card title="Attachments">
             <div class="slds-m-around_medium slds-grid slds-gutters">
@@ -35,14 +38,16 @@
         </lightning-card>
         <c-e-signature-disclaimer oncheckdisclaimer={handleCheckboxclick}></c-e-signature-disclaimer>
         <div class="slds-m-around_medium">
-         <lightning-layout multiple-rows="true">
+            <button class="slds-button slds-text-align_right slds-button_brand" onclick={createGrantBudget} disabled={submitDisabled}>Submit</button>
+
+         <!-- <lightning-layout multiple-rows="true">
                 <lightning-layout-item size="10" flexibility="auto" padding="horizontal-small" class="slds-text-align_left">
 
                 </lightning-layout-item>
                 <lightning-layout-item size="2" flexibility="auto" padding="horizontal-small" class="slds-text-align_left">
                     <button class="slds-button slds-text-align_right slds-button_brand" onclick={createGrantBudget} disabled={submitDisabled}>Submit</button>
                 </lightning-layout-item>
-            </lightning-layout>
+            </lightning-layout> -->
         </div>
     </lightning-card>
 </template>

@@ -1,8 +1,8 @@
 public with sharing class OtherFundingResourceCtrl {
     public static String ESIGN_DOCUMENT = 'EsignDisclaimer';  
     @AuraEnabled
-    public static string createFundingResource(String resourceData){
-        // try {
+    public static string createFundingResource(String resourceData, String parRecId){
+        try {
             Boolean isNoException = false;
             System.debug('resourceData'+resourceData);
             List<ObjectWrapperClass> objectList = (List<ObjectWrapperClass>) JSON.deserialize(resourceData,List<ObjectWrapperClass>.class);
@@ -28,99 +28,47 @@ public with sharing class OtherFundingResourceCtrl {
                 insert otherResourceList;
                 isNoException = true;
             }
-            return isNoException == true ? 'yes it got inserted' : '';
-        // } catch (Exception e) {
-        //     throw new AuraHandledException(e.getMessage());
-        // }
+            return isNoException == true ? sendEmail() : '';
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
     @AuraEnabled
-    public static string createGrnatBudgetRecords(String resourceData,String parRecId,Map<String,String> directMap,Map<String,String> adminMap,Map<String,String> personalMap,
-    String otherFundingSrc){
-        //  try {
-            List<GrandtFundersWrapperCalss> objectList = (List<GrandtFundersWrapperCalss>) JSON.deserialize(resourceData,List<GrandtFundersWrapperCalss>.class);
-            List<Grant_Budget__c> grantResourceList = new List<Grant_Budget__c>();
-            List<Application__c> applicationList = new List<Application__c>();
-            Set<Application__c> applicationSet = new Set<Application__c>();
-            for(GrandtFundersWrapperCalss owc : objectList){
-                Grant_Budget__c gb = new Grant_Budget__c();
-                gb.Expense_Category__c = owc.colexpenseCategory;
-                gb.Budget_Line_Item__c = owc.expenseCategory;
-                gb.Project_Budget__c = owc.totalBudget;
-                gb.Amount_Applied_from_Sentara_Grant__c = owc.requestedFromSentara;
-                gb.Line_funding_source__c = owc.otherFundingSources;
-                gb.Actual_Amount__c = owc.actualGrantExpenses;
-                gb.Application__c = parRecId;
-                grantResourceList.add(gb);
-            }
-            
-            if(grantResourceList != null && !grantResourceList.isEmpty()){
-                insert grantResourceList;
-            }
-            if(!directMap.isEmpty() || !adminMap.isEmpty() || !personalMap.isEmpty()){
-                Application__c app = new Application__c();
-                app.Id = parRecId;
-
-                if(!directMap.isEmpty()){
-                    app.Project_Total_Direct_Expenses__c = Decimal.ValueOf(directMap.get('totalcolBudget'));
-                    app.Project_Total_Direct_Requested__c = Decimal.ValueOf(directMap.get('totalcolrequestedFromSentara'));
-                    app.Project_Total_Direct_Other_Fund_Source__c = Decimal.ValueOf(directMap.get('totalcolotherFundingSources'));
-                    app.Project_Total_Direct_Actual__c = Decimal.ValueOf(directMap.get('totalcolactualGrantExpenses'));
-                    applicationList.add(app);
+    public static string updateStatusForGBAndOGB(String parRecId){
+        try {
+            List<Grant_Budget__c> grantResourceList =  grandBudgetHelper.getGrandBudgets(parRecId);
+            if(!grantResourceList.isEmpty()){
+                for(Grant_Budget__c gb : grantResourceList){
+                    gb.Status__c = 'Submitted';
                 }
-
-                if(!adminMap.isEmpty()){
-                    app.Project_Total_Administrative_Expenses__c = Decimal.ValueOf(adminMap.get('totalcolBudget'));
-                    app.Project_Total_Administrative_Requested__c = Decimal.ValueOf(adminMap.get('totalcolrequestedFromSentara'));
-                    app.Project_Total_Administrative_Other_Fund__c = Decimal.ValueOf(adminMap.get('totalcolotherFundingSources'));
-                    app.Project_Total_Administrative_Actual__c = Decimal.ValueOf(adminMap.get('totalcolactualGrantExpenses'));
-                    applicationList.add(app);
-                }
-
-                if(!personalMap.isEmpty()){
-                    app.Project_Total_Personnel_Expenses__c = Decimal.ValueOf(personalMap.get('totalcolBudget'));
-                    app.Project_Total_Personnel_Requested__c = Decimal.ValueOf(personalMap.get('totalcolrequestedFromSentara'));
-                    app.Project_Total_Personnel_Other_Fund_Sourc__c = Decimal.ValueOf(personalMap.get('totalcolotherFundingSources'));
-                    app.Project_Total_Personnel_Actual__c = Decimal.ValueOf(personalMap.get('totalcolactualGrantExpenses'));
-                    applicationList.add(app);
-                }
-                applicationSet.addAll(applicationList);
-                if(!applicationSet.isEmpty()){
-                    List<Application__c> appList = new List<Application__c>(applicationSet);
-                    update appList;
-                }
+                update grantResourceList;
             }
-            String returnVal = '';
-            if(!String.isBlank(otherFundingSrc)){
-                System.debug('otherFundingSrc' +otherFundingSrc);
-                returnVal =  OtherFundingResourceCtrl.createFundingResource(otherFundingSrc);
-            }
-
-            return returnVal;
-        // } catch (Exception e) {
-        //     throw new AuraHandledException(e.getMessage());
-        // }
+            return 'Success';
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
-
+    
     @AuraEnabled
     public static string getAttchmentDetails(string parId){
-        list<FileInfo> fileList = new list<FileInfo>();   
+        list<ObjectWrappersClasses.FileInfo> fileList = new list<ObjectWrappersClasses.FileInfo>();   
         List<ContentDocumentLink> contentDocList = [SELECT ContentDocumentId, ContentDocument.Title, 
-        ContentDocument.LatestPublishedVersionId, ContentDocument.ContentSize, ContentDocument.LatestPublishedVersion.Title, ContentDocument.LatestPublishedVersion.VersionNumber
-        FROM ContentDocumentLink
-        WHERE LinkedEntityId =: parId];
-
+                                                    ContentDocument.LatestPublishedVersionId, ContentDocument.ContentSize, ContentDocument.LatestPublishedVersion.Title, ContentDocument.LatestPublishedVersion.VersionNumber
+                                                    FROM ContentDocumentLink
+                                                    WHERE LinkedEntityId =: parId];
+        
         for(ContentDocumentLink conlink: contentDocList){
-            FileInfo fileData = new FileInfo();
+            ObjectWrappersClasses.FileInfo fileData = new ObjectWrappersClasses.FileInfo();
             fileData.docId = conlink.ContentDocumentId;
             fileData.Title = conlink.ContentDocument.Title;           
             fileData.size = FileSizeToString(conlink.ContentDocument.ContentSize);
             fileList.add(fileData);
         }
-
+        
         String fileJSON = JSON.serialize(fileList);
         return fileJSON;
     }
-
+    
     public static String FileSizeToString(Long Value){
         if (Value < 1024){
             return string.valueOf(Value) + ' Bytes';
@@ -143,7 +91,7 @@ public with sharing class OtherFundingResourceCtrl {
             return string.valueOf(gb) + ' GB';
         }    
     }    
-
+    
     @AuraEnabled
     public static string deleteSingleAttachment(string attchmentID){
         set<id> setIDs = new set<id>();
@@ -153,11 +101,28 @@ public with sharing class OtherFundingResourceCtrl {
         }
         List<ContentDocument> conDocList = [SELECT Id,IsDeleted,Title,Description FROM ContentDocument WHERE Id IN :setIDs AND IsDeleted = false];
         if(conDocList != null && conDocList.size()>0){
-           delete conDocList;
+            delete conDocList;
         }
         return conDocList[0].Id;
     }
-
+    
+    public static String sendEmail(){
+        String rtnStr = '';
+        User currentUser = [SELECT Email FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1];
+        if(currentUser.Email != null){
+            List<String> toAddresses = new List<String>{currentUser.Email};
+                Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+            email.setToAddresses(toAddresses);
+            email.setSubject('Application successfully Created');
+            email.setPlainTextBody('your Grant Application is submitted please review your application in the portal. Thank you');
+            Messaging.SendEmailResult[] results = Messaging.sendEmail(new Messaging.SingleEmailMessage[]{email});
+            if (results[0].isSuccess()) {
+                rtnStr = 'Success';
+            }
+        }
+        return rtnStr;
+    }
+    
     @AuraEnabled
     public static Map<String,String> getBodyOfConsent(){
         Map<String,String> result = new Map<String,String>();
@@ -173,12 +138,59 @@ public with sharing class OtherFundingResourceCtrl {
         return result;
     }
 
-    public class FileInfo {  
-        public string docId;   
-        public String Title;
-        public string Size;
+    @AuraEnabled
+    public static Map<String,String> getDataUpsert(String recData,String parRecId,String rowIndex){
+        try {
+            Map<String,String> recMap = new Map<String,String>();
+            List<Grant_Budget__c> grantResourceList = new List<Grant_Budget__c>();
+            List<ObjectWrappersClasses.grandtFundersWrapperCalss> objectList = (List<ObjectWrappersClasses.grandtFundersWrapperCalss>) JSON.deserialize(recData,List<ObjectWrappersClasses.grandtFundersWrapperCalss>.class);
+            System.debug('objectList'+objectList);
+            Integer lastIndex = objectList.size() - 1;
+            ObjectWrappersClasses.grandtFundersWrapperCalss  wrapOnject  = objectList[Integer.valueOf(rowIndex)];
+            System.debug('wrapOnject'+wrapOnject);
+            for(ObjectWrappersClasses.grandtFundersWrapperCalss owc : objectList){
+                Grant_Budget__c gb = new Grant_Budget__c();
+                if(owc.recId != ''){
+                    gb.Id = owc.recId;
+                }
+                if(owc.recId == ''){
+                    gb.Status__c = 'Draft';
+                }
+                gb.Expense_Category__c = owc.colexpenseCategory;
+                gb.Budget_Line_Item__c = owc.expenseCategory;
+                gb.Project_Budget__c = owc.totalBudget  != '' ? Decimal.valueOf(owc.totalBudget) : 0.00;
+                gb.Amount_Applied_from_Sentara_Grant__c = owc.requestedFromSentara  != '' ? Decimal.valueOf(owc.requestedFromSentara) : 0.00;
+                gb.Line_funding_source__c = owc.otherFundingSources != '' ? Decimal.valueOf(owc.otherFundingSources) : 0.00;
+                gb.Actual_Amount__c = owc.actualGrantExpenses  != '' ? Decimal.valueOf(owc.actualGrantExpenses) : 0.00;
+                gb.Application__c = parRecId;
+                gb.rowIndex__c = owc.rowIndex;
+                grantResourceList.add(gb);
+            }
+            upsert grantResourceList;
+            System.debug('grantResourceList'+grantResourceList);
+            if(wrapOnject!= null){
+                applicationHelper.updateApplicationRecord(wrapOnject,parRecId);
+            }
+            if(!grantResourceList.isEmpty()){
+                for(Grant_Budget__c g : grantResourceList){
+                    recMap.put(g.rowIndex__c,g.Id);
+                }
+            }
+            return recMap;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
-
+    @AuraEnabled
+    public static String getAllBudgets(String appId,String expenseCategory){
+        try {
+            return JSON.serialize(grandBudgetHelper.getDBData(appId,expenseCategory));
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+   
+    
     public class ObjectWrapperClass{
         
         @AuraEnabled
@@ -195,24 +207,5 @@ public with sharing class OtherFundingResourceCtrl {
         public string statusOfRequest;
         @AuraEnabled
         public String startDateofFunding;
-    }
-
-    public class GrandtFundersWrapperCalss{
-        @AuraEnabled
-        public String colexpenseCategory;
-        @AuraEnabled
-        public String expenseCategory;
-        @AuraEnabled
-        public Decimal totalBudget;
-        @AuraEnabled
-        public Decimal otherFundingSources;
-        @AuraEnabled
-        public Decimal requestedFromSentara;
-        @AuraEnabled
-        public Decimal actualGrantExpenses;
-        @AuraEnabled
-        public Decimal diff;
-        @AuraEnabled
-        public Decimal percentage;
     }
 }

@@ -1,4 +1,4 @@
-import { LightningElement,track , wire} from 'lwc';
+import { LightningElement,track , wire,api} from 'lwc';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 
@@ -8,7 +8,8 @@ import STATUS_FIELD from '@salesforce/schema/Grant_Other_Funders__c.Request_Stat
 import SOURCE_FIELD from '@salesforce/schema/Grant_Other_Funders__c.Funding_Source__c';
 import FROM_FIELD from '@salesforce/schema/Grant_Other_Funders__c.Funding_From__c';
 
-
+const STORAGE_KEY = 'myOtherData';
+const OTHER_FUNDING_STORAGE_KEY = 'myOtherFunding';
 export default class OtherFundingResource extends LightningElement {
     statusValues;
     sourceValues;
@@ -18,6 +19,7 @@ export default class OtherFundingResource extends LightningElement {
     isOtherFunderRequired = false;
     funderFromOptions;
     otherFunderFromOptions;
+    @api isClearStorage;
     @track rows = [{
         Id: 0, 
         fundingSource:'', 
@@ -76,8 +78,15 @@ export default class OtherFundingResource extends LightningElement {
     addRow() {
         let rowId = this.rows.length;
         this.rows.push({ Id: rowId,  fundingSource:'', fundingForm: '', otherFunders:'', nameOftheProj: '', amountAwarded: '', statusOfRequest:'',startDateofFunding: '', disableOtherFunders : false});
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.rows));
     }
 
+    connectedCallback(){
+        let storedData = window.localStorage.getItem(OTHER_FUNDING_STORAGE_KEY);
+        if (storedData) {
+            this.rows = JSON.parse(storedData);
+        }
+    }
 
     handleChange(event) {
         let fieldName = event.target.name;
@@ -150,6 +159,12 @@ export default class OtherFundingResource extends LightningElement {
     }
 
     handleOtherSetValues(rowData) {
+        window.localStorage.setItem(OTHER_FUNDING_STORAGE_KEY, JSON.stringify(rowData));
         this.dispatchEvent(new CustomEvent('otherfunding', { detail: rowData }));
+    }
+    disconnectedCallback(){
+        if(this.isClearStorage === true){
+            window.localStorage.clear();
+        }
     }
 }

@@ -1,0 +1,123 @@
+<template>
+                    <div class="slds-m-around_medium"> 
+                        <lightning-layout multiple-rows="true" class="slds-form-element">
+                            <lightning-layout-item size="12" flexibility="auto">
+
+                               
+                <table class="slds-table" style="table-layout: fixed;">
+                    <thead>
+                        <tr class="slds-line-height_reset" >
+                            <th class="classCSS " title={colValue} scope="col">
+                                <div class="slds-text-align_left fixWidth" title={colValue}>{colValue}</div>
+                            </th>
+                            <template for:each={columnData} for:item="column">
+                                <th key={column.fieldName} class="classCSS  "  scope="col">
+                                    <div class="slds-truncate slds-text-align_center" title={column.label}>
+                                        <lightning-formatted-rich-text value={column.label}></lightning-formatted-rich-text>
+                                    </div>
+                                </th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rows} for:item="row">
+                            <tr key={row.Id}>
+                                <td class="slds-cell-wrap tdClass">
+
+                                    <div class="tdDivClass">
+                                        <lightning-input type="text"  name="expenseCategory" value={row.expenseCategory} onchange={handleChange}  data-id={row.Id} ></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap tdClass">
+                                    <div class="tdDivClass">
+                                        <lightning-input type="number" name="totalBudget" value={row.totalBudget} onchange={handleChange} data-id={row.Id}></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap tdClass">
+
+                                    <div class="tdDivClass">
+                                        <lightning-input type="number" name="requestedFromSentara" value={row.requestedFromSentara}  onchange={handleChange} data-id={row.Id}></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap tdClass">
+
+                                    <div class="tdDivClass">
+                                        <lightning-input type="number" name="otherFundingSources" value={row.otherFundingSources} onchange={handleChange} data-id={row.Id}></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap tdClass">
+
+                                    <div class="tdDivClass">
+                                        <lightning-input type="number" name="actualGrantExpenses" value={row.actualGrantExpenses} onchange={handleChange}  data-id={row.Id}></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap tdClass">
+
+                                    <div class="tdDivClass">
+                                        <lightning-input type="number" name="diff" value={row.diff}  data-id={row.Id} disabled></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap tdClass">
+
+                                    <div class="tdDivClass">
+                                        <lightning-input type="number" name="percentage" value={row.percentage}  data-id={row.Id} disabled></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap tdClass">
+                                    <lightning-button-icon  icon-name="utility:delete" class="declined" data-id={row.Id} onclick={handleDelete}
+                                    size="medium"></lightning-button-icon>
+                                    <lightning-button-icon icon-name="utility:add" size="medium" variant="neutral" data-id={row.Id} onclick={addRow}></lightning-button-icon>
+
+                                </td>
+                            </tr>
+                        </template>
+                        <tr class="noBorder">
+                            <td class="slds-size_3-of-9 tdClass">
+                                <div class="tdDivClass">
+                                   <b> <lightning-input type="text"  name="Total" value={totalName} disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b><lightning-input class="inputClass" type="number" name="totalBudget" value={totalcolBudget} disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b><lightning-input class="inputClass" type="number" name="requestedFromSentara" value={totalcolrequestedFromSentara} disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b> <lightning-input class="inputClass" type="number" name="otherFundingSources" value={totalcolotherFundingSources} disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b> <lightning-input class="inputClass" type="number" name="actualGrantExpenses" value={totalcolactualGrantExpenses} disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b> <lightning-input class="inputClass" type="number" name="diff" value={totalcoldiff}  disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b>  <lightning-input class="inputClass" type="number" name="percentage" value={totalcolpercentage}  disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="slds-truncate slds-text-align_center slds-hide">
+                                    Destructive
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>  
+            </lightning-layout-item>
+
+        </lightning-layout>
+
+        </div>
+</template>
