@@ -149,22 +149,24 @@ public with sharing class OtherFundingResourceCtrl {
             ObjectWrappersClasses.grandtFundersWrapperCalss  wrapOnject  = objectList[Integer.valueOf(rowIndex)];
             System.debug('wrapOnject'+wrapOnject);
             for(ObjectWrappersClasses.grandtFundersWrapperCalss owc : objectList){
-                Grant_Budget__c gb = new Grant_Budget__c();
-                if(owc.recId != ''){
-                    gb.Id = owc.recId;
+                if(owc.colexpenseCategory != null || owc.colexpenseCategory != ''){
+                    Grant_Budget__c gb = new Grant_Budget__c();
+                    if(owc.recId != ''){
+                        gb.Id = owc.recId;
+                    }
+                    if(owc.recId == ''){
+                        gb.Status__c = 'Draft';
+                    }
+                    gb.Expense_Category__c = owc.colexpenseCategory;
+                    gb.Budget_Line_Item__c = owc.expenseCategory;
+                    gb.Project_Budget__c = owc.totalBudget  != '' ? Decimal.valueOf(owc.totalBudget) : 0.00;
+                    gb.Amount_Applied_from_Sentara_Grant__c = owc.requestedFromSentara  != '' ? Decimal.valueOf(owc.requestedFromSentara) : 0.00;
+                    gb.Line_funding_source__c = owc.otherFundingSources != '' ? Decimal.valueOf(owc.otherFundingSources) : 0.00;
+                    gb.Actual_Amount__c = owc.actualGrantExpenses  != '' ? Decimal.valueOf(owc.actualGrantExpenses) : 0.00;
+                    gb.Application__c = parRecId;
+                    gb.rowIndex__c = owc.rowIndex;
+                    grantResourceList.add(gb);
                 }
-                if(owc.recId == ''){
-                    gb.Status__c = 'Draft';
-                }
-                gb.Expense_Category__c = owc.colexpenseCategory;
-                gb.Budget_Line_Item__c = owc.expenseCategory;
-                gb.Project_Budget__c = owc.totalBudget  != '' ? Decimal.valueOf(owc.totalBudget) : 0.00;
-                gb.Amount_Applied_from_Sentara_Grant__c = owc.requestedFromSentara  != '' ? Decimal.valueOf(owc.requestedFromSentara) : 0.00;
-                gb.Line_funding_source__c = owc.otherFundingSources != '' ? Decimal.valueOf(owc.otherFundingSources) : 0.00;
-                gb.Actual_Amount__c = owc.actualGrantExpenses  != '' ? Decimal.valueOf(owc.actualGrantExpenses) : 0.00;
-                gb.Application__c = parRecId;
-                gb.rowIndex__c = owc.rowIndex;
-                grantResourceList.add(gb);
             }
             upsert grantResourceList;
             System.debug('grantResourceList'+grantResourceList);

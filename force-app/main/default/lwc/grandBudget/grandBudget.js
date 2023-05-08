@@ -155,7 +155,13 @@ export default class GrandBudget extends LightningElement {
                 this.rows[rowIndex]['recId'] = data[rowIndex];
             }
         }).catch((error) =>{
-            console.log({error});
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error record',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
         })
     }
 
@@ -205,7 +211,13 @@ export default class GrandBudget extends LightningElement {
                 }
             }
         }).catch((error) =>{
-            console.log({error});
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error record',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
         });
     }
 
@@ -256,9 +268,23 @@ export default class GrandBudget extends LightningElement {
                     this.deleteRecord(this.rows[rowIndex].recId,fields);
                 }
                 this.rows.splice(rowIndex, 1);
+            }else {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error deleting record',
+                        message: 'You can not delete if it have sigle row. Please update the values',
+                        variant: 'error'
+                    })
+                );
             }
         }catch (error) {
-            console.log({error})
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error deleting record',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
         }
     }
 
