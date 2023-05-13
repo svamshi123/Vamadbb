@@ -1,5 +1,5 @@
 import { LightningElement,api,track } from 'lwc';
-import { deleteRecord,updateRecord } from 'lightning/uiRecordApi';
+import { updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import APPLICATION_ID from '@salesforce/schema/Application__c.Id';
@@ -21,6 +21,7 @@ import TOTAL_PERSONNEL_REQUESTED from '@salesforce/schema/Application__c.Project
 
 import upsertData from '@salesforce/apex/OtherFundingResourceCtrl.getDataUpsert';
 import getAllBudgets from '@salesforce/apex/OtherFundingResourceCtrl.getAllBudgets';
+import deleteRow from '@salesforce/apex/OtherFundingResourceCtrl.deleteRow';
 
 const DIRECT_EXPENSES = 'Other Direct Expenses';
 const ADMIN_EXPENSES = 'Administrative Expenses';
@@ -138,7 +139,7 @@ export default class GrandBudget extends LightningElement {
         }
         window.clearTimeout(this.delayTimeout);
         this.delayTimeout = setTimeout(() => {
-                this.updateRecord(this.rows,rowIndex,inputElement);
+            this.updateRecord(this.rows,rowIndex,inputElement);
         },DELAY);
     }
     async updateRecord(rowData,rowIndex,inputElement){
@@ -150,7 +151,6 @@ export default class GrandBudget extends LightningElement {
 
     upsertGrandBudgetRecord(rowData,rowIndex){
         upsertData({recData:JSON.stringify(rowData),parRecId:this.parentRecord,rowIndex:rowIndex}).then((data) => {
-            console.log(JSON.stringify(data));
             if(data != null){
                 this.rows[rowIndex]['recId'] = data[rowIndex];
             }
@@ -188,26 +188,11 @@ export default class GrandBudget extends LightningElement {
             if(Array.isArray(returnData.objWrapList) && returnData.objWrapList.length > 0){
                 this.rows = returnData.objWrapList;
                 if(this.colValue === DIRECT_EXPENSES) {
-                    this.totalcolBudget = returnData.applicationDetails.Project_Total_Direct_Expenses__c;
-                    this.totalcolotherFundingSources = returnData.applicationDetails.Project_Total_Direct_Other_Fund_Source__c;
-                    this.totalcolrequestedFromSentara = returnData.applicationDetails.Project_Total_Direct_Requested__c;
-                    this.totalcolactualGrantExpenses = returnData.applicationDetails.Project_Total_Direct_Actual__c;
-                    this.totalcoldiff = this.totalcolBudget - this.totalcolrequestedFromSentara;
-                    this.totalcolpercentage =  (this.totalcolrequestedFromSentara / this.totalcolBudget) * 100;
+                    this.getTotalCalculate(returnData.objWrapList);
                 }else  if(this.colValue === ADMIN_EXPENSES) {
-                    this.totalcolBudget = returnData.applicationDetails.Project_Total_Administrative_Expenses__c;
-                    this.totalcolotherFundingSources = returnData.applicationDetails.Project_Total_Administrative_Other_Fund__c;
-                    this.totalcolrequestedFromSentara = returnData.applicationDetails.Project_Total_Administrative_Requested__c;
-                    this.totalcolactualGrantExpenses = returnData.applicationDetails.Project_Total_Administrative_Actual__c;
-                    this.totalcoldiff = this.totalcolBudget - this.totalcolrequestedFromSentara;
-                    this.totalcolpercentage =  (this.totalcolrequestedFromSentara / this.totalcolBudget) * 100;
+                    this.getTotalCalculate(returnData.objWrapList);
                 }else  if(this.colValue === PERSONAL_EXPENSES) {
-                    this.totalcolBudget = returnData.applicationDetails.Project_Total_Personnel_Expenses__c;
-                    this.totalcolotherFundingSources = returnData.applicationDetails.Project_Total_Personnel_Other_Fund_Sourc__c;
-                    this.totalcolrequestedFromSentara = returnData.applicationDetails.Project_Total_Personnel_Requested__c;
-                    this.totalcolactualGrantExpenses = returnData.applicationDetails.Project_Total_Personnel_Actual__c;
-                    this.totalcoldiff = this.totalcolBudget - this.totalcolrequestedFromSentara;
-                    this.totalcolpercentage =  (this.totalcolrequestedFromSentara / this.totalcolBudget) * 100;
+                    this.getTotalCalculate(returnData.objWrapList);
                 }
             }
         }).catch((error) =>{
@@ -220,7 +205,31 @@ export default class GrandBudget extends LightningElement {
             );
         });
     }
+    getTotalCalculate(rowData){
+        this.totalcolBudget = rowData.reduce((acc,object) =>{
+            return acc + (object.totalBudget !== '' ? parseFloat(object.totalBudget) : 0);
+        },0)
 
+        this.totalcolotherFundingSources = rowData.reduce((acc,object) =>{
+            return acc + (object.otherFundingSources !== '' ? parseFloat(object.otherFundingSources) : 0);
+        },0)
+
+        this.totalcolrequestedFromSentara = rowData.reduce((acc,object) =>{
+            return acc + (object.requestedFromSentara !== '' ? parseFloat(object.requestedFromSentara) : 0);
+        },0)
+
+        this.totalcolactualGrantExpenses = rowData.reduce((acc,object) =>{
+            return acc + (object.actualGrantExpenses !== '' ? parseFloat(object.actualGrantExpenses) : 0);
+        },0)
+
+        this.totalcoldiff = rowData.reduce((acc,object) =>{
+            return acc + (object.diff !== '' ? parseFloat(object.diff) : 0);
+        },0)
+
+        this.totalcolpercentage = rowData.reduce((acc,object) =>{
+            return acc + (object.percentage !== '' ? parseFloat(object.percentage) : 0);
+        },0)
+    }
     handleDelete(event) {
         let rowId = event.target.dataset.id;
         try{       
@@ -265,7 +274,7 @@ export default class GrandBudget extends LightningElement {
                         fields[TOTAL_PERSONNEL_OTHER_FUND.fieldApiName] =  this.totalcolotherFundingSources;
                         fields[TOTAL_PERSONNEL_ACTUAL.fieldApiName] =  this.totalcolactualGrantExpenses;
                     }
-                    this.deleteRecord(this.rows[rowIndex].recId,fields);
+                    this.deleteRecord(this.rows[rowIndex].recId,fields,rowIndex)
                 }
                 this.rows.splice(rowIndex, 1);
             }else {
@@ -288,20 +297,13 @@ export default class GrandBudget extends LightningElement {
         }
     }
 
-    deleteRecord(recId,fields){
-        deleteRecord(recId).then(() => {
+    deleteRecord(recId,fields,rowIndex){
+        deleteRow({recId:recId,parId:this.parentRecord,colValue:this.colValue}).then((data) =>{
             this.updateApplication(fields);
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Success',
-                    message: 'Record deleted',
-                    variant: 'success'
-                })
-            );
         }).catch(error => {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error deleting record',
+                    title: 'Error creating record',
                     message: error.body.message,
                     variant: 'error'
                 })
@@ -327,9 +329,15 @@ export default class GrandBudget extends LightningElement {
     @api 
     validateData(){
         let checkEmptyVal = [];
-        console.log('rows ==> '+ JSON.stringify(this.rows));
         if(this.colValue === DIRECT_EXPENSES) {
-            console.log('DIRECT_EXPENSES'+DIRECT_EXPENSES);
+            let totalObject = {
+                totalcolBudget: this.totalcolBudget,
+                totalcolotherFundingSources : this.totalcolotherFundingSources,
+                totalcolrequestedFromSentara : this.totalcolrequestedFromSentara,
+                totalcolactualGrantExpenses : this.totalcolactualGrantExpenses,
+                totalcoldiff : this.totalcoldiff,
+                totalcolpercentage : this.totalcolpercentage
+            }
             this.rows.forEach(e =>{
                 if(e.totalBudget === '' || e.totalBudget === null || e.totalBudget === '0.00' ||
                  e.requestedFromSentara === '' || e.requestedFromSentara === null || e.requestedFromSentara === '0.00'){
@@ -343,12 +351,19 @@ export default class GrandBudget extends LightningElement {
                     variant: 'error'
                 });
                 this.dispatchEvent(event1);
-                return true;
+                return {};
             }
-            return false;
+            return totalObject;
 
         }else if(this.colValue === ADMIN_EXPENSES) {
-            console.log('ADMIN_EXPENSES'+ADMIN_EXPENSES);
+            let totalObject = {
+                totalcolBudget: this.totalcolBudget,
+                totalcolotherFundingSources : this.totalcolotherFundingSources,
+                totalcolrequestedFromSentara : this.totalcolrequestedFromSentara,
+                totalcolactualGrantExpenses : this.totalcolactualGrantExpenses,
+                totalcoldiff : this.totalcoldiff,
+                totalcolpercentage : this.totalcolpercentage
+            }
             this.rows.forEach(e =>{
                 if(e.totalBudget === '' || e.totalBudget === null || e.totalBudget === '0.00' ||
                 e.requestedFromSentara === '' || e.requestedFromSentara === null || e.requestedFromSentara === '0.00'){
@@ -362,12 +377,19 @@ export default class GrandBudget extends LightningElement {
                     variant: 'error'
                 });
                 this.dispatchEvent(event1);
-                return true;
+                return {};
             }
-            return false;
+            return totalObject;
 
         }else if(this.colValue === PERSONAL_EXPENSES) {
-            console.log('PERSONAL_EXPENSES'+PERSONAL_EXPENSES);
+            let totalObject = {
+                totalcolBudget: this.totalcolBudget,
+                totalcolotherFundingSources : this.totalcolotherFundingSources,
+                totalcolrequestedFromSentara : this.totalcolrequestedFromSentara,
+                totalcolactualGrantExpenses : this.totalcolactualGrantExpenses,
+                totalcoldiff : this.totalcoldiff,
+                totalcolpercentage : this.totalcolpercentage
+            }
             this.rows.forEach(e =>{
                 if(e.totalBudget === '' || e.totalBudget === null || e.totalBudget === '0.00' ||
                 e.requestedFromSentara === '' || e.requestedFromSentara === null || e.requestedFromSentara === '0.00'){
@@ -381,9 +403,9 @@ export default class GrandBudget extends LightningElement {
                     variant: 'error'
                 });
                 this.dispatchEvent(event1);
-                return true;
+                return {};
             }
-            return false;
+            return totalObject;
         }
     }
 }

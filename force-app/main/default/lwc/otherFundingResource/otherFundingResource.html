@@ -77,16 +77,16 @@
                                     </td>
                                     <td class="slds-size_1-of-9 tdClass">
                                         <div class="tdDivClass">
-                                            <template if:false={row.isOtherFunderForm}>
+                                            <!-- <template if:false={row.isOtherFunderForm}>
                                                  <lightning-combobox options={funderFromOptions} name="fundingForm" value={row.fundingForm}  data-id={row.Id}
                                                     onchange={handleChange}>
                                                 </lightning-combobox>
-                                            </template>
-                                            <template if:true={row.isOtherFunderForm}>
-                                                <lightning-combobox options={otherFunderFromOptions} name="fundingForm" value={row.fundingForm}  data-id={row.Id}
+                                            </template> -->
+                                            <!-- <template if:true={row.isOtherFunderForm}> -->
+                                                <lightning-combobox options={fromOption} name="fundingForm" value={row.fundingForm}  data-id={row.Id}
                                                    onchange={handleChange}>
                                                </lightning-combobox>
-                                           </template>
+                                           <!-- </template> -->
                                            
                                         </div>
                                     </td>

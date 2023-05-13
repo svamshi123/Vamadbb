@@ -3,9 +3,7 @@ public with sharing class grandBudgetHelper {
     public static ObjectWrappersClasses.concatObjWrapper getDBData(String appId,String expenseCategory){
         Decimal totalPercentage;
         List<ObjectWrappersClasses.grandtFundersWrapperCalss> dgbwList = new List<ObjectWrappersClasses.grandtFundersWrapperCalss>();
-        List<Grant_Budget__c> gbList = [SELECT Id,Expense_Category__c,Budget_Line_Item__c,Project_Budget__c,Amount_Applied_from_Sentara_Grant__c,
-        Line_funding_source__c,Actual_Amount__c,Application__c,rowIndex__c FROM Grant_Budget__c 
-        WHERE Application__c =: appId AND Expense_Category__c =:expenseCategory Order By rowIndex__c ASC];
+        List<Grant_Budget__c> gbList = getGrandBudgetWithParentId(appId,expenseCategory);
         if(!gbList.isEmpty()){
             for(Grant_Budget__c gb : gbList){
                 ObjectWrappersClasses.grandtFundersWrapperCalss dgbw = new ObjectWrappersClasses.grandtFundersWrapperCalss();
@@ -34,10 +32,8 @@ public with sharing class grandBudgetHelper {
                 dgbwList.add(dgbw);
             }
         }
-        Application__c appDetails = applicationHelper.getApplicationDetails(appId);
         ObjectWrappersClasses.concatObjWrapper cow = new ObjectWrappersClasses.concatObjWrapper();
         cow.objWrapList = dgbwList;
-        cow.applicationDetails = appDetails;
         cow.totalPercentage = totalPercentage;
         return cow;
     }
@@ -48,5 +44,12 @@ public with sharing class grandBudgetHelper {
                                         WHERE Application__c =:parRecId AND Status__c =: 'Draft'];
 
         return gbList;
+    }
+
+    public static List<Grant_Budget__c> getGrandBudgetWithParentId(String appId, String expenseCategory){
+            return [SELECT Id,Expense_Category__c,Budget_Line_Item__c,Project_Budget__c,Amount_Applied_from_Sentara_Grant__c,
+                    Line_funding_source__c,Actual_Amount__c,Application__c,rowIndex__c 
+                    FROM Grant_Budget__c 
+                    WHERE Application__c =: appId AND Expense_Category__c =:expenseCategory Order By rowIndex__c ASC];
     }
 }

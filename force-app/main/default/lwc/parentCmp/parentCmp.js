@@ -36,8 +36,7 @@ export default class ParentCmp extends LightningElement {
         {label: 'Other Funding Sources',fieldName:'Other Funding Sources'},
         {label: 'Actual Grant Expenses',fieldName:'Actual Grant Expenses'},
         {label: 'Var $',fieldName:'Var $'},
-        {label: 'Var %',fieldName:'Var %'},
-        // {label: ' ',fieldName:' '}
+        {label: 'Var %',fieldName:'Var %'}
     ];
 
     @wire(getObjectInfo, { objectApiName: GRANT_OBJECT })
@@ -57,13 +56,17 @@ export default class ParentCmp extends LightningElement {
 
    async createGrantBudget(){
         let personnelExpensesValidate =   await this.template.querySelector('.personnelExpenses').validateData();
-        // console.log('personnelExpensesValidate --> '+personnelExpensesValidate);
         let otherDirectExpensesValidate =   await this.template.querySelector('.otherDirectExpenses').validateData();
-        // console.log('otherDirectExpensesValidate --> '+otherDirectExpensesValidate);
         let administrativeExpensesValidate =   await this.template.querySelector('.administrativeExpenses').validateData();
-        // console.log('administrativeExpenses --> '+administrativeExpensesValidate);
-        if(personnelExpensesValidate === false && otherDirectExpensesValidate === false && administrativeExpensesValidate === false){
-            updateStatusForGBAndOGB({parRecId:this.parentRecord}).then((data) =>{
+        let otherFunderSourceValidate =   await this.template.querySelector('.otherFunderSource').validateData();
+        let finalObject = {
+            totalPersonnelExpenses : personnelExpensesValidate,
+            totalotherDirectExpenses : otherDirectExpensesValidate,
+            totaladministrativeExpenses : administrativeExpensesValidate,
+        }
+        if((Object.keys(personnelExpensesValidate).length !== 0 && Object.keys(otherDirectExpensesValidate).length !== 0  && Object.keys(administrativeExpensesValidate).length !== 0) 
+           || (otherFunderSourceValidate === false)){
+            updateStatusForGBAndOGB({parRecId:this.parentRecord, fundingResourceCheck: otherFunderSourceValidate,totalValues: finalObject}).then((data) =>{
                 if(data !== '' && data !== null && data.length > 0){
                     //this.closeFlow();
                     this.dispatchEvent(
@@ -92,9 +95,6 @@ export default class ParentCmp extends LightningElement {
         this.dispatchEvent(closeFlowEvent);
     }
     
-    handleOtherFunding(event){
-        this.otherFunding = event.detail;
-    }
     handleCheckboxclick(event){
         this.submitDisabled = !event.detail.checked;
     }

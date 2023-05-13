@@ -1,34 +1,50 @@
 import { LightningElement ,api,track} from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-import getAttchmentDetails from '@salesforce/apex/OtherFundingResourceCtrl.getAttchmentDetails';
 import deleteSingleAttachment from '@salesforce/apex/OtherFundingResourceCtrl.deleteSingleAttachment';
+import documentCreate from '@salesforce/apex/OtherFundingResourceCtrl.createDocument';
+import getDocWithType from '@salesforce/apex/OtherFundingResourceCtrl.getDocWithType';
 
 export default class UploadDocuments extends LightningElement {
-       @api labelName;
-       @api parentRecord;
-       @track fileuploaded =[];
-       
-       handleUploadFinished(event){
+    @api labelName;
+    @api parentRecord;
+    @track fileuploaded =[];
+
+    connectedCallback(){
+        this.getApplicationDoc();
+    }
+    handleUploadFinished(event){
         const uploadedFiles = event.detail.files;
         let uploadedFileIds = '';
         for (let i = 0; i < uploadedFiles.length; i++) {
             uploadedFileIds += uploadedFiles[i].documentId + ',';
         }
         let fileNames = uploadedFileIds.split(',');
-        getAttchmentDetails({parId: this.parentRecord})
-        .then(result => {
-            let fileData = JSON.parse(result);
-            this.fileuploaded = fileData.filter(obj => fileNames.includes(obj.docId));
-        })
-        .catch(error => {
+        this.createDocuments(fileNames);
+        
+    }
+    createDocuments(fileNames){
+        documentCreate({type:this.labelName,parId:this.parentRecord}).then((data) =>{
+            if(data!=null){
+                this.getApplicationDoc();
+            }
+        }).catch(error => {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error',
                     message: error.body.message,
                     variant: 'error',
                 }),
-            );
+            );           
         });
+    }
+
+    getApplicationDoc(){
+        getDocWithType({type:this.labelName,appId:this.parentRecord}).then((data) => {
+            if(data !== null ){
+                this.fileuploaded = JSON.parse(data);
+            }
+        })
     }
     removeAttachment(event){
         let value = event.target.value;    

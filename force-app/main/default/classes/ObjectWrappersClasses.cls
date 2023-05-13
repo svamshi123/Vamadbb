@@ -47,4 +47,31 @@ public with sharing class ObjectWrappersClasses {
         public String Title;
         public string Size;
     }
+
+    public class otherGrandtFundersWrapperCalss{
+        @AuraEnabled
+        public String Id;
+        @AuraEnabled
+        public String rowIndex;
+        @AuraEnabled
+        public String recId;
+        @AuraEnabled
+        public string fundingSource;
+        @AuraEnabled
+        public string fundingForm;
+        @AuraEnabled
+        public string otherFunders;
+        @AuraEnabled
+        public string nameOftheProj;
+        @AuraEnabled
+        public String amountAwarded;
+        @AuraEnabled
+        public string statusOfRequest;
+        @AuraEnabled
+        public String startDateofFunding;
+        @AuraEnabled
+        public Boolean disableOtherFunders;
+        @AuraEnabled
+        public Boolean isOtherFunderForm = false;
+    }
 }
