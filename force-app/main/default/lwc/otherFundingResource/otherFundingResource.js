@@ -180,6 +180,14 @@ export default class OtherFundingResource extends LightningElement {
                 this.deleteRecord(this.rows[rowIndex].recId);
             }
             this.rows.splice(rowIndex, 1);
+        }else {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error deleting record',
+                    message: 'You can not delete if it have sigle row. Please update the values',
+                    variant: 'info'
+                })
+            );
         }
     }
 
@@ -228,11 +236,11 @@ export default class OtherFundingResource extends LightningElement {
         let checkEmptyVal = [];
         this.rows.forEach(e =>{
             if((e.nameOftheProj === '' || e.nameOftheProj === null || e.nameOftheProj === undefined) ||
-               (e.fundingForm === '' || e.fundingForm === null || e.fundingForm === undefined) ||
+                (e.fundingForm === '' || e.fundingForm === null || e.fundingForm === undefined) ||
                 (e.amountAwarded === '' || e.amountAwarded === null || e.amountAwarded === '0.00' || e.amountAwarded === undefined) || 
                 (e.statusOfRequest === '' || e.statusOfRequest === null || e.statusOfRequest === undefined) ||
                 (e.startDateofFunding === '' || e.startDateofFunding === null || e.startDateofFunding === undefined)){
-                    if(e.fundingSource === 'None'){
+                    if(e.fundingSource === 'None' || e.fundingSource === '' || e.e.fundingSource === null || e.fundingSource === undefined ){
                         return ;
                     }
                 checkEmptyVal.push(PREVIEW);

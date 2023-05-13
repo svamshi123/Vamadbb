@@ -65,7 +65,7 @@ export default class ParentCmp extends LightningElement {
             totaladministrativeExpenses : administrativeExpensesValidate,
         }
         if((Object.keys(personnelExpensesValidate).length !== 0 && Object.keys(otherDirectExpensesValidate).length !== 0  && Object.keys(administrativeExpensesValidate).length !== 0) 
-           || (otherFunderSourceValidate === false)){
+           && (otherFunderSourceValidate === false)){
             updateStatusForGBAndOGB({parRecId:this.parentRecord, fundingResourceCheck: otherFunderSourceValidate,totalValues: finalObject}).then((data) =>{
                 if(data !== '' && data !== null && data.length > 0){
                     //this.closeFlow();

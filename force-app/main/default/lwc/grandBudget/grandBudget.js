@@ -282,7 +282,7 @@ export default class GrandBudget extends LightningElement {
                     new ShowToastEvent({
                         title: 'Error deleting record',
                         message: 'You can not delete if it have sigle row. Please update the values',
-                        variant: 'error'
+                        variant: 'info'
                     })
                 );
             }
