@@ -140,27 +140,26 @@
         <formFactor>Small</formFactor>
         <type>Default</type>
     </actionOverrides>
-    <allowInChatterGroups>true</allowInChatterGroups>
+    <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>This object is used to identify other organizations that also funded the program that the applicant has asked Sentara to fund.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
-    <enableReports>true</enableReports>
+    <enableReports>false</enableReports>
     <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>ControlledByParent</externalSharingModel>
-    <label>Grant Other Funders</label>
+    <label>Document</label>
     <nameField>
-        <displayFormat>GOF-{0000}</displayFormat>
-        <label>Grant Other Funders Number</label>
+        <displayFormat>D-{0000}</displayFormat>
+        <label>Documents Name</label>
         <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Other Funders</pluralLabel>
+    <pluralLabel>Documents</pluralLabel>
     <searchLayouts></searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>

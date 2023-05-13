@@ -7,7 +7,6 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
-        <controllingField>Funding_Source__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -37,33 +36,5 @@
                 <label>Others</label>
             </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>Sentara</controllingFieldValue>
-            <controllingFieldValue>Sentara Artifacts</controllingFieldValue>
-            <controllingFieldValue>Other Funding Source</controllingFieldValue>
-            <valueName>Sentara Corporate</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Sentara</controllingFieldValue>
-            <controllingFieldValue>Sentara Artifacts</controllingFieldValue>
-            <controllingFieldValue>Other Funding Source</controllingFieldValue>
-            <valueName>Sentara Hospital</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Sentara</controllingFieldValue>
-            <controllingFieldValue>Sentara Artifacts</controllingFieldValue>
-            <controllingFieldValue>Other Funding Source</controllingFieldValue>
-            <valueName>Optima Health</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Sentara</controllingFieldValue>
-            <controllingFieldValue>Sentara Artifacts</controllingFieldValue>
-            <controllingFieldValue>Other Funding Source</controllingFieldValue>
-            <valueName>Virginia Premier</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Other Funding Source</controllingFieldValue>
-            <valueName>Others</valueName>
-        </valueSettings>
     </valueSet>
 </CustomField>

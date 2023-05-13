@@ -26,6 +26,11 @@
                 <default>false</default>
                 <label>Direct - Project Personnel Expenses</label>
             </value>
+            <value>
+                <fullName>Administrative Expenses</fullName>
+                <default>false</default>
+                <label>Administrative Expenses</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
