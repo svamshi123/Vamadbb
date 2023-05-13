@@ -1,155 +1,136 @@
 <template> 
-    <div class="slds-scrollable_y" style="max-height: 400px; overflow: auto;">
-    <lightning-card title="Funding Sources">
-        <div class="slds-grid slds-wrap">
-            <div class="slds-col slds-size_1-of-1">
-                <div class="slds-m-around_medium">
-                    <table class="slds-table">
-                        <thead>
-                            <tr class="slds-line-height_reset">
+    <div class="slds-m-around_medium">
+        <lightning-layout multiple-rows="true" class="slds-form-element">
+            <lightning-layout-item size="12" flexibility="auto">
+                <table class="slds-table" style="table-layout: fixed;">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="classCSS" scope="col">
+                                <div class="slds-text-align_center" title="Other Funding Sources:">Funding Sources</div>
+                            </th>
+                            <template if:false={showRequired}>
                                 <th class="classCSS" scope="col">
-                                    <div class="slds-text-align_center" title="Other Funding Sources:">Funding Sources</div>
+                                    <div class="slds-truncate slds-text-align_center" title="Funding Form">Funding From</div>
                                 </th>
-                                <template if:false={showRequired}>
-                                    <th class="classCSS" scope="col">
-                                        <div class="slds-truncate slds-text-align_center" title="Funding Form">Funding From</div>
-                                    </th>
+                                <th class="classCSS" scope="col">
+                                    <div class="slds-truncate slds-text-align_center " title="Other Funders">Other Funder Name</div>
+                                </th>
+                                <th class="classCSS" scope="col">
+                                    <div class="slds-truncate slds-text-align_center " title="Name Of the Project">Name Of the Project</div>
+                                </th>
+                                <th class="classCSS" scope="col">
+                                    <div class="slds-truncate slds-text-align_center " title="Amount awarded $">Amount awarded $</div>
+                                </th>
+                                <th class="classCSS" scope="col">
+                                    <div class="slds-truncate slds-text-align_center " title="Status of Request">Status of Request</div>
+                                </th>
+                                <th class="classCSS" scope="col">
+                                    <div class="slds-truncate slds-text-align_center " title="Start Date of Funding">Start Date of Funding</div>
+                                </th>
+                            </template>
+                            <template if:true={showRequired}>
+                                <th class="classCSS" scope="col">
+                                    <div class="slds-truncate slds-text-align_center" title="Funding Form"><span style="color: red; ">*</span> Funding From</div>
+                                </th>
+                                <template if:false={isOtherFunderRequired}>
                                     <th class="classCSS" scope="col">
                                         <div class="slds-truncate slds-text-align_center " title="Other Funders">Other Funder Name</div>
                                     </th>
+                                </template>
+                                <template if:true={isOtherFunderRequired}>
                                     <th class="classCSS" scope="col">
-                                        <div class="slds-truncate slds-text-align_center " title="Name Of the Project">Name Of the Project</div>
-                                    </th>
-                                    <th class="classCSS" scope="col">
-                                        <div class="slds-truncate slds-text-align_center " title="Amount awarded $">Amount awarded $</div>
-                                    </th>
-                                    <th class="classCSS" scope="col">
-                                        <div class="slds-truncate slds-text-align_center " title="Status of Request">Status of Request</div>
-                                    </th>
-                                    <th class="classCSS" scope="col">
-                                        <div class="slds-truncate slds-text-align_center " title="Start Date of Funding">Start Date of Funding</div>
+                                        <div class="slds-truncate slds-text-align_center " title="Other Funders"> <span style="color: red; ">*</span> Other Funder Name</div>
                                     </th>
                                 </template>
-                                <template if:true={showRequired}>
-                                    <th class="classCSS" scope="col">
-                                        <div class="slds-truncate slds-text-align_center" title="Funding Form"><span style="color: red; ">*</span> Funding From</div>
-                                    </th>
-                                    <template if:false={isOtherFunderRequired}>
-                                        <th class="classCSS" scope="col">
-                                            <div class="slds-truncate slds-text-align_center " title="Other Funders">Other Funder Name</div>
-                                        </th>
-                                    </template>
-                                    <template if:true={isOtherFunderRequired}>
-                                        <th class="classCSS" scope="col">
-                                            <div class="slds-truncate slds-text-align_center " title="Other Funders"> <span style="color: red; ">*</span> Other Funder Name</div>
-                                        </th>
-                                    </template>
-                                  
-                                    <th class="classCSS" scope="col">
-                                        <div class="slds-truncate slds-text-align_center " title="Name Of the Project"><span style="color: red; ">*</span> Name Of the Project</div>
-                                    </th>
-                                    <th class="classCSS" scope="col">
-                                        <div class="slds-truncate slds-text-align_center " title="Amount awarded $"><span style="color: red; ">*</span> Amount awarded $</div>
-                                    </th>
-                                    <th class="classCSS" scope="col">
-                                        <div class="slds-truncate slds-text-align_center " title="Status of Request"><span style="color: red; ">*</span> Status of Request</div>
-                                    </th>
-                                    <th class="classCSS" scope="col">
-                                        <div class="slds-truncate slds-text-align_center " title="Start Date of Funding"><span style="color: red; ">*</span> Start Date of Funding</div>
-                                    </th>
-                                </template>
+                            
                                 <th class="classCSS" scope="col">
-                                    <div class="slds-truncate slds-text-align_center slds-hide">
-                                        Destructive
-                                    </div>
+                                    <div class="slds-truncate slds-text-align_center " title="Name Of the Project"><span style="color: red; ">*</span> Name Of the Project</div>
                                 </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template for:each={rows} for:item="row">
-                                <tr key={row.Id}>
-                                    <td class="slds-size_3-of-9 tdClass">
-                                        <div class="tdDivClass">
-                                            <lightning-combobox options={sourceValues} name="fundingSource" value={row.fundingSource}  data-id={row.Id}
-                                                onchange={handleSourceChange}>
-                                            </lightning-combobox>
-                                        </div>
-                                    </td>
-                                    <td class="slds-size_1-of-9 tdClass">
-                                        <div class="tdDivClass">
-                                            <!-- <template if:false={row.isOtherFunderForm}>
-                                                 <lightning-combobox options={funderFromOptions} name="fundingForm" value={row.fundingForm}  data-id={row.Id}
-                                                    onchange={handleChange}>
-                                                </lightning-combobox>
-                                            </template> -->
-                                            <!-- <template if:true={row.isOtherFunderForm}> -->
-                                                <lightning-combobox options={fromOption} name="fundingForm" value={row.fundingForm}  data-id={row.Id}
-                                                   onchange={handleChange}>
-                                               </lightning-combobox>
-                                           <!-- </template> -->
-                                           
-                                        </div>
-                                    </td>
-                                    <td class="slds-size_1-of-9 tdClass">
-                                        <template if:true={row.disableOtherFunders}>
-                                            <div class="tdDivClass">
-                                                <lightning-input type="text" name="otherFunders" value={row.otherFunders} onchange={handleChange} data-id={row.Id}></lightning-input>
-                                            </div>
-                                        </template>
-                                        <template if:false={row.disableOtherFunders}>
-                                            <div class="tdDivClass">
-                                                <lightning-input type="text" name="otherFunders" value={row.otherFunders} onchange={handleChange} data-id={row.Id} disabled></lightning-input>
-                                            </div>
-                                        </template>
-                                    </td>
-                                    <td class="slds-size_1-of-9 tdClass">
-                                        <div class="tdDivClass">
-                                            <lightning-input type="text" name="nameOftheProj" value={row.nameOftheProj} onchange={handleChange} data-id={row.Id}></lightning-input>
-                                        </div>
-                                    </td>
-                                    <td class="slds-size_1-of-9 tdClass">
-                                        <div class="tdDivClass">
-                                            <lightning-input type="number"  name="amountAwarded" value={row.amountAwarded} onchange={handleAmountChange}  data-id={row.Id}></lightning-input>
-                                        </div>
-                                    </td>
-                                    <td class="slds-size_1-of-9 tdClass">
-                                        <div class="tdDivClass">
-                                            <lightning-combobox options={statusValues} name="statusOfRequest" value={row.statusOfRequest}  data-id={row.Id}
-                                                onchange={handleChange}>
-                                            </lightning-combobox>
-                                        </div>
-                                    </td>
-                                    <td class="slds-size_1-of-9 tdClass">
-                                        <div class="tdDivClass">
-                                            <lightning-input type="date" name="startDateofFunding" value={row.startDateofFunding} onchange={handleChange} data-id={row.Id}></lightning-input>
-                                        </div>
-                                    </td>
-                                    <td class="slds-size_1-of-9 tdClass">
-                                        <lightning-button-icon  icon-name="utility:delete" class="declined" data-id={row.Id} onclick={handleDelete}
-                                    size="medium"></lightning-button-icon>
-                                    </td>
-                                    <td class="slds-size_1-of-9 tdClass" >                                    
-                                        <lightning-button-icon icon-name="utility:add" size="medium" variant="neutral" data-id={row.Id} onclick={addRow}></lightning-button-icon>
-                                    </td>
-                                </tr>
+                                <th class="classCSS" scope="col">
+                                    <div class="slds-truncate slds-text-align_center " title="Amount awarded $"><span style="color: red; ">*</span> Amount awarded $</div>
+                                </th>
+                                <th class="classCSS" scope="col">
+                                    <div class="slds-truncate slds-text-align_center " title="Status of Request"><span style="color: red; ">*</span> Status of Request</div>
+                                </th>
+                                <th class="classCSS" scope="col">
+                                    <div class="slds-truncate slds-text-align_center " title="Start Date of Funding"><span style="color: red; ">*</span> Start Date of Funding</div>
+                                </th>
                             </template>
-                        </tbody>
-                    </table>
-                    <br/>
-                    <div class="slds-grid slds-gutters">
-                        <div class="slds-col slds-size_4-of-12">
-                            <b><h2>Total Sum of Amount awarded: </h2></b>
-                        </div>
-                        <div class="slds-col">
-                            <b>{totalSum}</b> 
-                        </div>
-                    </div>
-                    <br/>
-                </div>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rows} for:item="row">
+                            <tr key={row.Id}>
+                                <td class="slds-size_3-of-9 tdClass">
+                                    <div class="tdDivClass">
+                                        <lightning-combobox options={sourceValues} name="fundingSource" value={row.fundingSource}  data-id={row.Id}
+                                            onchange={handleSourceChange}>
+                                        </lightning-combobox>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-9 tdClass">
+                                    <div class="tdDivClass">
+                                        <lightning-combobox options={fromOption} name="fundingForm" value={row.fundingForm}  data-id={row.Id}
+                                            onchange={handleChange}>
+                                        </lightning-combobox>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-9 tdClass">
+                                    <template if:true={row.disableOtherFunders}>
+                                        <div class="tdDivClass">
+                                            <lightning-input type="text" name="otherFunders" value={row.otherFunders} onchange={handleChange} data-id={row.Id}></lightning-input>
+                                        </div>
+                                    </template>
+                                    <template if:false={row.disableOtherFunders}>
+                                        <div class="tdDivClass">
+                                            <lightning-input type="text" name="otherFunders" value={row.otherFunders} onchange={handleChange} data-id={row.Id} disabled></lightning-input>
+                                        </div>
+                                    </template>
+                                </td>
+                                <td class="slds-size_1-of-9 tdClass">
+                                    <div class="tdDivClass">
+                                        <lightning-input type="text" name="nameOftheProj" value={row.nameOftheProj} onchange={handleChange} data-id={row.Id}></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-9 tdClass">
+                                    <div class="tdDivClass">
+                                        <lightning-input type="number"  name="amountAwarded" value={row.amountAwarded} onchange={handleAmountChange}  data-id={row.Id}></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-9 tdClass">
+                                    <div class="tdDivClass">
+                                        <lightning-combobox options={statusValues} name="statusOfRequest" value={row.statusOfRequest}  data-id={row.Id}
+                                            onchange={handleChange}>
+                                        </lightning-combobox>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-9 tdClass">
+                                    <div class="tdDivClass">
+                                        <lightning-input type="date" name="startDateofFunding" value={row.startDateofFunding} onchange={handleChange} data-id={row.Id}></lightning-input>
+                                    </div>
+                                </td>
+                                <td class="slds-size_1-of-9 tdClass">
+                                    <lightning-button-icon  icon-name="utility:delete" class="declined" data-id={row.Id} onclick={handleDelete}
+                                size="medium"></lightning-button-icon>
+                                <lightning-button-icon icon-name="utility:add" size="medium" variant="neutral" data-id={row.Id} onclick={addRow}></lightning-button-icon>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </lightning-layout-item>
+        </lightning-layout>
+        <br/>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_4-of-12">
+                <b><h2>Total Sum of Amount awarded: </h2></b>
+            </div>
+            <div class="slds-col">
+                <b>{totalSum}</b> 
             </div>
         </div>
-    </lightning-card>
-</div>
+        <br/>
+    </div>
 </template>
 
 
