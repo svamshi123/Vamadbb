@@ -20,9 +20,7 @@ public with sharing class OtherFundingResourceCtrl {
                 if(owc.recId != ''){
                     gor.Id = owc.recId;
                 }
-                if(owc.recId == ''){
-                    gor.Status__c = 'Draft';
-                }
+                gor.Status__c = 'Draft';
                 if(owc.otherFunders != ''){
                     gor.Funder_Name__c = owc.otherFunders != null ? owc.otherFunders : '';
                 }else{
@@ -294,9 +292,7 @@ public with sharing class OtherFundingResourceCtrl {
                     if(owc.recId != ''){
                         gb.Id = owc.recId;
                     }
-                    if(owc.recId == ''){
-                        gb.Status__c = 'Draft';
-                    }
+                    gb.Status__c = 'Draft';
                     gb.Expense_Category__c = owc.colexpenseCategory;
                     gb.Budget_Line_Item__c = owc.expenseCategory;
                     gb.Project_Budget__c = owc.totalBudget  != '' ? Decimal.valueOf(owc.totalBudget) : 0.00;
