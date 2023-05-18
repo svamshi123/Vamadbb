@@ -1,0 +1,17 @@
+.classCSS{
+    background-color: #96dcf4;
+}
+.fixWidth{
+    width: 300px;
+}
+.tdClass{
+    padding:0;
+    vertical-align:top;
+}
+.tdDivClass{
+    margin-top: -18px;
+   
+} 
+.noBorder{
+    border: none;
+}

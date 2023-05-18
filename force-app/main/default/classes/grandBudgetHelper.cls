@@ -47,9 +47,9 @@ public with sharing class grandBudgetHelper {
     }
 
     public static List<Grant_Budget__c> getGrandBudgetWithParentId(String appId, String expenseCategory){
-            return [SELECT Id,Expense_Category__c,Budget_Line_Item__c,Project_Budget__c,Amount_Applied_from_Sentara_Grant__c,
-                    Line_funding_source__c,Actual_Amount__c,Application__c,rowIndex__c 
-                    FROM Grant_Budget__c 
-                    WHERE Application__c =: appId AND Expense_Category__c =:expenseCategory Order By rowIndex__c ASC];
+       return [SELECT Id,Expense_Category__c,Budget_Line_Item__c,Project_Budget__c,Amount_Applied_from_Sentara_Grant__c,
+        Line_funding_source__c,Actual_Amount__c,Application__c,rowIndex__c 
+        FROM Grant_Budget__c 
+        WHERE Application__c =: appId AND Expense_Category__c =:expenseCategory Order By rowIndex__c ASC];
     }
 }

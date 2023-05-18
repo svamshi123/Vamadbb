@@ -176,8 +176,8 @@ public with sharing class OtherFundingResourceCtrl {
     public static String getDocWithType(String type,String appId){
         Map<String,List<ContentDocumentLink>> typeDocMap = new Map<String,List<ContentDocumentLink>>();
         List<Documents__c> docList = [SELECT Id,Type__c,(SELECT Id, ContentDocumentId, ContentDocument.ContentSize,ContentDocument.Title FROM ContentDocumentLinks) 
-                                    FROM Documents__c 
-                                    WHERE Application__c =:appId AND Type__c =: type];
+        FROM Documents__c 
+        WHERE Application__c =:appId AND Type__c =: type];
         for(Documents__c doc : docList){
             if(typeDocMap.containsKey(doc.Type__c)){
                 typeDocMap.get(doc.Type__c).addALL(doc.ContentDocumentLinks);

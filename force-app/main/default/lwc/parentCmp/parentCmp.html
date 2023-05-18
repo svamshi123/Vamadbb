@@ -12,24 +12,34 @@
             <c-grand-budget class="administrativeExpenses" col-value={administrativeExpenses} column-data={column} 
             parent-record={parentRecord} total-name="Total: Administrative" ></c-grand-budget>
         </template>
-        <div>
-            <c-other-funding-resource class="otherFunderSource" parent-record={parentRecord} ></c-other-funding-resource>
-        </div>
+        <c-total-budget-column class="totalBudgetColumn" total-personal-expenses={totalPersonalExpenses} 
+        total-admin-expenses={totalAdminExpenses} total-direct-expenses={totalDirectExpenses}></c-total-budget-column>
+        <lightning-card title="Other Funding Resource">
+            <div>
+                <c-other-funding-resource class="otherFunderSource" parent-record={parentRecord} ></c-other-funding-resource>
+            </div>
+        </lightning-card>
         <lightning-card title="Attachments">
-            <div class="slds-m-around_medium slds-grid slds-gutters">
-                <div class="slds-size_11-of-12">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-2">
                     <div class="slds-box">
                         <c-upload-documents label-name="Program/Project Budget Template" parent-record={parentRecord}></c-upload-documents>
-                    </div><br/><br/>
+                    </div><br/>
                     <div class="slds-box">
                         <c-upload-documents label-name="List of Organization's Board of Directors" parent-record={parentRecord}></c-upload-documents>
-                    </div><br/><br/>
+                    </div><br/>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
                     <div class="slds-box">
                         <c-upload-documents label-name="IRS confirmation of tax ruling and 501(c)3 ruling" parent-record={parentRecord}></c-upload-documents>
-                    </div><br/><br/>
+                    </div><br/>
                     <div class="slds-box">
                         <c-upload-documents label-name="IRS Form 990" parent-record={parentRecord}></c-upload-documents>
-                    </div><br/><br/>
+                    </div><br/>
+                </div>
+            </div>
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-2">
                     <div class="slds-box">
                         <c-upload-documents label-name="Additional Documentation (i.e. annual report)" parent-record={parentRecord}></c-upload-documents>
                     </div>

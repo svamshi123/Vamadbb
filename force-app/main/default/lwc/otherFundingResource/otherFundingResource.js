@@ -240,7 +240,7 @@ export default class OtherFundingResource extends LightningElement {
                 (e.amountAwarded === '' || e.amountAwarded === null || e.amountAwarded === '0.00' || e.amountAwarded === undefined) || 
                 (e.statusOfRequest === '' || e.statusOfRequest === null || e.statusOfRequest === undefined) ||
                 (e.startDateofFunding === '' || e.startDateofFunding === null || e.startDateofFunding === undefined)){
-                    if(e.fundingSource === 'None' || e.fundingSource === '' || e.e.fundingSource === null || e.fundingSource === undefined ){
+                    if(e.fundingSource === 'None' || e.fundingSource === '' || e.fundingSource === null || e.fundingSource === undefined ){
                         return ;
                     }
                 checkEmptyVal.push(PREVIEW);

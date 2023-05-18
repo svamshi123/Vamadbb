@@ -1,6 +1,8 @@
-import { LightningElement,api,track } from 'lwc';
+import { LightningElement,api,track,wire } from 'lwc';
 import { updateRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { CurrentPageReference } from 'lightning/navigation'; 
+import { fireEvent } from 'c/pubSub'; 
 
 import APPLICATION_ID from '@salesforce/schema/Application__c.Id';
 import TOTAL_DIRECT_ACTUAL from '@salesforce/schema/Application__c.Project_Total_Direct_Actual__c';
@@ -45,6 +47,7 @@ export default class GrandBudget extends LightningElement {
     @track rows = [];
     isRowAdded = false;
 
+    @wire(CurrentPageReference) pageRef; 
 
     connectedCallback(){
         this.getGrandBudgets();
@@ -137,6 +140,13 @@ export default class GrandBudget extends LightningElement {
         if(this.totalcolpercentage !== null && this.totalcolpercentage !== undefined){
             this.rows[rowIndex]['totalcolpercentage'] = this.totalcolpercentage;
         }
+        if(this.colValue === DIRECT_EXPENSES) {
+            this.handleDirectEcpenses();
+        }else  if(this.colValue === ADMIN_EXPENSES) {
+            this.handleAdminEcpenses();
+        }else  if(this.colValue === PERSONAL_EXPENSES) {
+            this.handlePersonlaEcpenses();
+        }
         window.clearTimeout(this.delayTimeout);
         this.delayTimeout = setTimeout(() => {
             this.updateRecord(this.rows,rowIndex,inputElement);
@@ -148,7 +158,6 @@ export default class GrandBudget extends LightningElement {
             await this.upsertGrandBudgetRecord(rowData,rowIndex);
         }
     }
-
     upsertGrandBudgetRecord(rowData,rowIndex){
         upsertData({recData:JSON.stringify(rowData),parRecId:this.parentRecord,rowIndex:rowIndex}).then((data) => {
             if(data != null){
@@ -229,6 +238,13 @@ export default class GrandBudget extends LightningElement {
         this.totalcolpercentage = rowData.reduce((acc,object) =>{
             return acc + (object.percentage !== '' ? parseFloat(object.percentage) : 0);
         },0)
+        if(this.colValue === DIRECT_EXPENSES) {
+            this.handleDirectEcpenses();
+        }else  if(this.colValue === ADMIN_EXPENSES) {
+            this.handleAdminEcpenses();
+        }else  if(this.colValue === PERSONAL_EXPENSES) {
+            this.handlePersonlaEcpenses();
+        }
     }
     handleDelete(event) {
         let rowId = event.target.dataset.id;
@@ -408,4 +424,41 @@ export default class GrandBudget extends LightningElement {
             return totalObject;
         }
     }
+    handleDirectEcpenses(){
+        let totalObject = [{
+            arrayObjectName: 'direct',
+            totalcolBudget: this.totalcolBudget,
+            totalcolotherFundingSources : this.totalcolotherFundingSources,
+            totalcolrequestedFromSentara : this.totalcolrequestedFromSentara,
+            totalcolactualGrantExpenses : this.totalcolactualGrantExpenses,
+            totalcoldiff : this.totalcoldiff,
+            totalcolpercentage : this.totalcolpercentage
+        }];
+       fireEvent(this.pageRef, "directExpenses", totalObject); 
+    }
+    handleAdminEcpenses(){
+        let totalObject = [{
+            arrayObjectName: 'admin',
+            totalcolBudget: this.totalcolBudget,
+            totalcolotherFundingSources : this.totalcolotherFundingSources,
+            totalcolrequestedFromSentara : this.totalcolrequestedFromSentara,
+            totalcolactualGrantExpenses : this.totalcolactualGrantExpenses,
+            totalcoldiff : this.totalcoldiff,
+            totalcolpercentage : this.totalcolpercentage
+        }];
+       fireEvent(this.pageRef, "adminExpenses", totalObject); 
+    }
+    handlePersonlaEcpenses(){
+        let totalObject = [{
+            arrayObjectName: 'personal',
+            totalcolBudget: this.totalcolBudget,
+            totalcolotherFundingSources : this.totalcolotherFundingSources,
+            totalcolrequestedFromSentara : this.totalcolrequestedFromSentara,
+            totalcolactualGrantExpenses : this.totalcolactualGrantExpenses,
+            totalcoldiff : this.totalcoldiff,
+            totalcolpercentage : this.totalcolpercentage
+        }]
+       fireEvent(this.pageRef, "personalExpenses", totalObject); 
+    }
+    
 }

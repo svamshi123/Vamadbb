@@ -1,0 +1,54 @@
+<template>
+    <div class="slds-m-around_medium"> 
+        <lightning-layout multiple-rows="true" class="slds-form-element">
+            <lightning-layout-item size="12" flexibility="auto">
+                <table class="slds-table" style="table-layout: fixed;">
+                    <tbody>
+                        <tr class="noBorder">
+                            <td class="slds-size_3-of-9 tdClass">
+                                <div class="slds-truncate slds-text-align_center tdDivClass">
+                                    <b><lightning-input class="inputClass" type="text" name="total" value="Total:" disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b><lightning-input class="inputClass" type="number" name="totalBudget" value={totalallcolBudget} disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b><lightning-input class="inputClass" type="number" name="requestedFromSentara" value={totalallcolrequestedFromSentara} disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b> <lightning-input class="inputClass" type="number" name="otherFundingSources" value={totalallcolotherFundingSources} disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b> <lightning-input class="inputClass" type="number" name="actualGrantExpenses" value={totalallcolactualGrantExpenses} disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b> <lightning-input class="inputClass" type="number" name="diff" value={totalallcoldiff}  disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="tdDivClass">
+                                    <b>  <lightning-input class="inputClass" type="number" name="percentage" value={totalallcolpercentage}  disabled></lightning-input></b>
+                                </div>
+                            </td>
+                            <td class="slds-size_1-of-9 tdClass">
+                                <div class="slds-truncate slds-text-align_center slds-hide">
+                                    Destructive
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>

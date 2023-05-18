@@ -12,22 +12,12 @@ const PERSONAL_EXPENSES = 'Direct - Project Personnel Expenses';
 
 
 export default class ParentCmp extends LightningElement {
-    expenseCategory;
-    error;
-    directExpenses = [];
-    adminExpenses = [];
-    personalExpenses = [];
-    otherFunding = [];
-    directMap = {};
-    adminMap = {};
-    personalMap = {};
+
     @api parentRecord = 'a0D2y000002zInzEAE';
-    totalAllColBudget = 0;
-    totalAllColotherFundingSources = 0;
-    totalAllColrequestedFromSentara = 0;
-    totalAllColactualGrantExpenses = 0;
-    totalAllColdiff = 0;
-    totalAllColpercentage = 0;
+
+    totalPersonalExpenses = true;
+    totalAdminExpenses = true;
+    totalDirectExpenses = true;
     submitDisabled = true;
    
     column = [
@@ -59,10 +49,12 @@ export default class ParentCmp extends LightningElement {
         let otherDirectExpensesValidate =   await this.template.querySelector('.otherDirectExpenses').validateData();
         let administrativeExpensesValidate =   await this.template.querySelector('.administrativeExpenses').validateData();
         let otherFunderSourceValidate =   await this.template.querySelector('.otherFunderSource').validateData();
+        let totalBudgetColumn =  await this.template.querySelector('.totalBudgetColumn').gettotalValues();
         let finalObject = {
             totalPersonnelExpenses : personnelExpensesValidate,
             totalotherDirectExpenses : otherDirectExpensesValidate,
             totaladministrativeExpenses : administrativeExpensesValidate,
+            totalCalBudget : totalBudgetColumn
         }
         if((Object.keys(personnelExpensesValidate).length !== 0 && Object.keys(otherDirectExpensesValidate).length !== 0  && Object.keys(administrativeExpensesValidate).length !== 0) 
            && (otherFunderSourceValidate === false)){
