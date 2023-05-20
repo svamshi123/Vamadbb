@@ -1,0 +1,135 @@
+<apex:page controller="ApplicationPdfController" showHeader="false" applyBodyTag="false" applyHtmlTag="false" renderAs="pdf">
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Santara Application</h1>
+<apex:pageBlock title="Direct Project Expenses">
+    <apex:panelGrid columns="2" style="table-layout: fixed" width="100%">
+        <apex:pageBlockSection columns="1">
+            <p><b>Total Personnel Expenses: </b>
+                {!application.Project_Total_Personnel_Expenses__c}</p>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2">
+            <p><b>Total Personnel Other Fund Source: </b>
+                {!application.Project_Total_Personnel_Other_Fund_Sourc__c}</p>
+        </apex:pageBlockSection>
+    </apex:panelGrid>
+    <apex:panelGrid columns="2" style="table-layout: fixed" width="100%">
+        <apex:pageBlockSection columns="1">
+            <p><b>Total Personnel Requested: </b>
+                {!application.Project_Total_Personnel_Requested__c}</p>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2">
+            <p><b>Total Personnel Actual: </b>
+                {!application.Project_Total_Personnel_Actual__c}</p>
+        </apex:pageBlockSection>
+    </apex:panelGrid>
+</apex:pageBlock>
+<apex:pageBlock title="Other Direct Expenses">
+    <apex:panelGrid columns="2" style="table-layout: fixed" width="100%">
+        <apex:pageBlockSection columns="1">
+            <p><b>Total Direct Expenses: </b>
+                {!application.Project_Total_Direct_Expenses__c}</p>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2">
+            <p><b>Total Direct Other Fund Source: </b>
+                {!application.Project_Total_Direct_Other_Fund_Source__c}</p>
+        </apex:pageBlockSection>
+    </apex:panelGrid>
+    <apex:panelGrid columns="2" style="table-layout: fixed" width="100%">
+        <apex:pageBlockSection columns="1">
+            <p><b>Total Direct Requested: </b>
+                {!application.Project_Total_Direct_Requested__c}</p>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2">
+            <p><b>Total Direct Actual: </b>
+                {!application.Project_Total_Direct_Actual__c}</p>
+        </apex:pageBlockSection>
+    </apex:panelGrid>
+</apex:pageBlock>
+<apex:pageBlock title="Adminitration Expenses">
+    <apex:panelGrid columns="2" style="table-layout: fixed" width="100%">
+        <apex:pageBlockSection columns="1">
+            <p><b>Total Administrative Expenses: </b>
+                {!application.Project_Total_Administrative_Expenses__c}</p>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2">
+            <p><b>Total Administrative Other Fund Source: </b>
+                {!application.Project_Total_Administrative_Other_Fund__c}</p>
+        </apex:pageBlockSection>
+    </apex:panelGrid>
+    <apex:panelGrid columns="2" style="table-layout: fixed" width="100%">
+        <apex:pageBlockSection columns="1">
+            <p><b>Total Administrative Requested: </b>
+                {!application.Project_Total_Administrative_Requested__c}</p>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="2">
+            <p><b>Total Administrative Actual: </b>
+                {!application.Project_Total_Administrative_Actual__c}</p>
+        </apex:pageBlockSection>
+    </apex:panelGrid>
+</apex:pageBlock>
+<apex:pageBlock title="Grand Budgets">
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Expense Category</th>
+                <th>Line Item</th>
+                <th>Total Budget</th>
+                <th>Requested From Santara</th>
+                <th>Other Funding Resource</th>
+                <th>Actual Grand Expenses</th>
+            </tr>
+        </thead>
+        <tbody>
+            <apex:repeat value="{!application.Grant_Budgets__r}" var="gb">
+                <tr>
+                    <td>  
+                        {!gb.Expense_Category__c}
+                    </td>
+                    <td>  
+                        {!gb.Budget_Line_Item__c}
+                    </td>
+                    <td>  
+                        {!gb.Project_Budget__c}
+                    </td>
+                    <td>  
+                        {!gb.Amount_Applied_from_Sentara_Grant__c}
+                    </td>
+                    <td>  
+                        {!gb.Line_funding_source__c}
+                    </td>
+                    <td>  
+                        {!gb.Actual_Amount__c}
+                    </td>
+                </tr>
+            </apex:repeat>
+        </tbody>
+    </table>
+</apex:pageBlock>
+<apex:pageBlock title="Other Funding Resource">
+    <table border="1" cellpadding="6">
+        <thead>
+            <tr>
+                <th>Funding Sources</th>
+                <th>Funding From</th>
+                <th>Name Of Project</th>
+                <th>Amount awarded</th>
+                <th>Status of Request</th>
+                <th>Start Date of Funding</th>
+            </tr>
+        </thead>
+        <tbody>
+            <apex:repeat value="{!application.Other_Funders__r}" var="ogf">
+                <tr>
+                    <td>{!ogf.Prior_Year_Fund_Source__c}</td>
+                    <td>{!ogf.Funder_Name__c}</td>
+                    <td>{!ogf.Funding_Project_Name__c}</td>
+                    <td>{!ogf.Funding_Amount__c}</td>
+                    <td>{!ogf.Request_Status__c}</td>
+                    <td>{!ogf.Funding_Start_Date__c}</td>
+                </tr>
+            </apex:repeat>
+        </tbody>
+    </table>
+</apex:pageBlock>
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

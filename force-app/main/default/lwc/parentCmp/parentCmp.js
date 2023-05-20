@@ -14,7 +14,7 @@ const PERSONAL_EXPENSES = 'Direct - Project Personnel Expenses';
 export default class ParentCmp extends LightningElement {
 
     @api parentRecord = 'a0D2y000002zInzEAE';
-
+    isPreviewModalOpen = false;
     totalPersonalExpenses = true;
     totalAdminExpenses = true;
     totalDirectExpenses = true;
@@ -89,5 +89,11 @@ export default class ParentCmp extends LightningElement {
     
     handleCheckboxclick(event){
         this.submitDisabled = !event.detail.checked;
+    }
+    handlePreView(){
+        this.isPreviewModalOpen = true
+    }
+    handleModalClose(event){
+        this.isPreviewModalOpen = !event.detail.isModalOpen
     }
 }

@@ -1,54 +1,67 @@
 <template>
-    <lightning-card title="Grant Budget">
-        <template if:true={personnelExpenses}>
-            <c-grand-budget class="personnelExpenses" col-value={personnelExpenses} column-data={column} total-name="Total: Personnel" rows={rows} 
-            parent-record={parentRecord} ></c-grand-budget>
-        </template>
-        <template if:true={otherDirectExpenses}>
-            <c-grand-budget class="otherDirectExpenses" col-value={otherDirectExpenses} column-data={column} total-name="Total: Direct Expenses" 
-            parent-record={parentRecord} ></c-grand-budget>
-        </template>
-        <template if:true={administrativeExpenses}>
-            <c-grand-budget class="administrativeExpenses" col-value={administrativeExpenses} column-data={column} 
-            parent-record={parentRecord} total-name="Total: Administrative" ></c-grand-budget>
-        </template>
-        <c-total-budget-column class="totalBudgetColumn" total-personal-expenses={totalPersonalExpenses} 
-        total-admin-expenses={totalAdminExpenses} total-direct-expenses={totalDirectExpenses}></c-total-budget-column>
-        <lightning-card title="Other Funding Resource">
-            <div>
-                <c-other-funding-resource class="otherFunderSource" parent-record={parentRecord} ></c-other-funding-resource>
+    <lightning-card>
+        <div class="slds-grid slds-gutters slds-wrap">
+            <div class="slds-col slds-size_10-of-12">
             </div>
-        </lightning-card>
-        <lightning-card title="Attachments">
-            <div class="slds-grid slds-gutters slds-wrap">
-                <div class="slds-col slds-size_1-of-2">
-                    <div class="slds-box">
-                        <c-upload-documents label-name="Program/Project Budget Template" parent-record={parentRecord}></c-upload-documents>
-                    </div><br/>
-                    <div class="slds-box">
-                        <c-upload-documents label-name="List of Organization's Board of Directors" parent-record={parentRecord}></c-upload-documents>
-                    </div><br/>
-                </div>
-                <div class="slds-col slds-size_1-of-2">
-                    <div class="slds-box">
-                        <c-upload-documents label-name="IRS confirmation of tax ruling and 501(c)3 ruling" parent-record={parentRecord}></c-upload-documents>
-                    </div><br/>
-                    <div class="slds-box">
-                        <c-upload-documents label-name="IRS Form 990" parent-record={parentRecord}></c-upload-documents>
-                    </div><br/>
-                </div>
+            <div class="slds-col slds-size_2-of-12">
+                <button class="slds-button slds-text-align_right slds-button_neutral" onclick={handlePreView}>Printable View</button>
             </div>
-            <div class="slds-grid slds-gutters slds-wrap">
-                <div class="slds-col slds-size_1-of-2">
-                    <div class="slds-box">
-                        <c-upload-documents label-name="Additional Documentation (i.e. annual report)" parent-record={parentRecord}></c-upload-documents>
+        </div>
+        <lightning-card title="Grant Budget">
+            <template if:true={personnelExpenses}>
+                <c-grand-budget class="personnelExpenses" col-value={personnelExpenses} column-data={column} total-name="Total: Personnel" rows={rows} 
+                parent-record={parentRecord} ></c-grand-budget>
+            </template>
+            <template if:true={otherDirectExpenses}>
+                <c-grand-budget class="otherDirectExpenses" col-value={otherDirectExpenses} column-data={column} total-name="Total: Direct Expenses" 
+                parent-record={parentRecord} ></c-grand-budget>
+            </template>
+            <template if:true={administrativeExpenses}>
+                <c-grand-budget class="administrativeExpenses" col-value={administrativeExpenses} column-data={column} 
+                parent-record={parentRecord} total-name="Total: Administrative" ></c-grand-budget>
+            </template>
+            <c-total-budget-column class="totalBudgetColumn" total-personal-expenses={totalPersonalExpenses} 
+            total-admin-expenses={totalAdminExpenses} total-direct-expenses={totalDirectExpenses}></c-total-budget-column>
+            <lightning-card title="Other Funding Resource">
+                <div>
+                    <c-other-funding-resource class="otherFunderSource" parent-record={parentRecord} ></c-other-funding-resource>
+                </div>
+            </lightning-card>
+            <lightning-card title="Attachments">
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-box">
+                            <c-upload-documents label-name="Program/Project Budget Template" parent-record={parentRecord}></c-upload-documents>
+                        </div><br/>
+                        <div class="slds-box">
+                            <c-upload-documents label-name="List of Organization's Board of Directors" parent-record={parentRecord}></c-upload-documents>
+                        </div><br/>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-box">
+                            <c-upload-documents label-name="IRS confirmation of tax ruling and 501(c)3 ruling" parent-record={parentRecord}></c-upload-documents>
+                        </div><br/>
+                        <div class="slds-box">
+                            <c-upload-documents label-name="IRS Form 990" parent-record={parentRecord}></c-upload-documents>
+                        </div><br/>
                     </div>
                 </div>
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <div class="slds-box">
+                            <c-upload-documents label-name="Additional Documentation (i.e. annual report)" parent-record={parentRecord}></c-upload-documents>
+                        </div>
+                    </div>
+                </div>
+            </lightning-card>
+            <c-e-signature-disclaimer oncheckdisclaimer={handleCheckboxclick}></c-e-signature-disclaimer>
+            <div class="slds-m-around_medium">
+                <button class="slds-button slds-text-align_right slds-button_brand" onclick={createGrantBudget} disabled={submitDisabled}>Submit</button>
             </div>
         </lightning-card>
-        <c-e-signature-disclaimer oncheckdisclaimer={handleCheckboxclick}></c-e-signature-disclaimer>
-        <div class="slds-m-around_medium">
-            <button class="slds-button slds-text-align_right slds-button_brand" onclick={createGrantBudget} disabled={submitDisabled}>Submit</button>
-        </div>
     </lightning-card>
+    <template if:true={isPreviewModalOpen}>
+        <c-preview-modal parent-record={parentRecord} modal-title ="Preview Application" is-preview-modal-open={isPreviewModalOpen} 
+        onmodalopen={handleModalClose}></c-preview-modal>
+    </template>
 </template>
