@@ -1,0 +1,24 @@
+<template>
+  <lightning-card>
+    <div class="slds-form-element">
+      <label class="slds-form-element__label" for="text-input-id-2"><span style="color: red; ">*</span> Tax Id</label>
+      <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+          <template if:false={showTaxId}>
+            <lightning-icon size="x-small" class="iconenablepointerevetns slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default " 
+            icon-name="utility:preview" ></lightning-icon>
+          </template>
+          <template if:true={showTaxId}>
+            <lightning-icon size="x-small" class="iconenablepointerevetns slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default " 
+            icon-name="utility:hide"></lightning-icon>
+          </template>
+          <input type="password" id="id_taxId" placeholder="Enter Your TaxId" class="slds-input" value={taxNumber}
+          onchange={handleTextValue} required/>
+        </div>
+    </div>
+    <div class="slds-size_1-of-1">
+      <lightning-input type="checkbox" data-id="checkbox" label="Show the tax Id" onchange={handleShowText}
+      disabled={isCheckboxDisabled}></lightning-input>
+    </div>
+    <span class="error" style="color: red;">{validationError}</span>
+  </lightning-card>
+</template>

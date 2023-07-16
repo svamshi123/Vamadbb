@@ -1,13 +1,10 @@
 public with sharing class createOtherFundersRecords {
-    
+    public class OtherFundersWrapperCalss{
+        @AuraEnabled
+        public String colexpenseCategory;
+        @AuraEnabled
+        public String expenseCategory;
+    }
 }
 
 
-public class OtherFundersWrapperCalss{
-    @AuraEnabled
-    public String colexpenseCategory;
-    @AuraEnabled
-    public String expenseCategory;
-    @AuraEnabled
-    public Desimal expenseCategory;
-}
