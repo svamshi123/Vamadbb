@@ -133,9 +133,11 @@ export default class GrandBudget extends LightningElement {
             this.rows[rowIndex]['totalcoldiff'] = this.totalcoldiff;
         }
         
-        this.totalcolpercentage = this.rows.reduce((acc,object) =>{
-            return acc + (object.percentage !== '' ? parseFloat(object.percentage) : 0);
-        },0)
+        // this.totalcolpercentage = this.rows.reduce((acc,object) =>{
+        //     return acc + (object.percentage !== '' ? parseFloat(object.percentage) : 0);
+        // },0)
+        
+        this.totalcolpercentage  = (this.totalcolrequestedFromSentara  / this.totalcolBudget) * 100;
 
         if(this.totalcolpercentage !== null && this.totalcolpercentage !== undefined){
             this.rows[rowIndex]['totalcolpercentage'] = this.totalcolpercentage;
@@ -235,9 +237,11 @@ export default class GrandBudget extends LightningElement {
             return acc + (object.diff !== '' ? parseFloat(object.diff) : 0);
         },0)
 
-        this.totalcolpercentage = rowData.reduce((acc,object) =>{
-            return acc + (object.percentage !== '' ? parseFloat(object.percentage) : 0);
-        },0)
+        // this.totalcolpercentage = rowData.reduce((acc,object) =>{
+        //     return acc + (object.percentage !== '' ? parseFloat(object.percentage) : 0);
+        // },0)
+        this.totalcolpercentage = (this.totalcolrequestedFromSentara / this.totalcolBudget) * 100;
+        
         if(this.colValue === DIRECT_EXPENSES) {
             this.handleDirectEcpenses();
         }else  if(this.colValue === ADMIN_EXPENSES) {

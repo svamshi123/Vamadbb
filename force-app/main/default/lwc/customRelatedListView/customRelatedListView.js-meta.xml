@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Application__c</object>
+            </objects>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="parentObjectAPIName" type="String" label="parent Object API Name" description="Should be the API Name"/>
+            <property name="recordId" type="String" label="Community Record ID" description="Should be set to {!recordId}"/>
+            <property name="childObjectAPIName" type="String" label="Child Object API Name" description="Should be the API of Child Object"/>
+            <property name="showDisplayLable" type="String" label="Show Display Lable" description="Should be the API of Child Object"/>
+            <property name="fieldsToDisplay" type="String" label="Fields To Display" description="Add the fields to display in comma separated"/>
+            <property name="pageURL" type="String" label="page URL" description="Add the Page URL Of the Chicd Object"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

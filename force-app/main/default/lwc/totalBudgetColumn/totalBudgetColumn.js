@@ -69,9 +69,10 @@ export default class TotalBudgetColumn extends LightningElement {
         this.totalallcoldiff = totalObject.reduce((acc,object) =>{
             return acc + (object.totalcoldiff !== '' ? parseFloat(object.totalcoldiff) : 0);
         },0)
-        this.totalallcolpercentage = totalObject.reduce((acc,object) =>{
-            return acc + (object.totalcolpercentage !== '' ? parseFloat(object.totalcolpercentage) : 0);
-        },0)
+        // this.totalallcolpercentage = totalObject.reduce((acc,object) =>{
+        //     return acc + (object.totalcolpercentage !== '' ? parseFloat(object.totalcolpercentage) : 0);
+        // },0)
+        this.totalallcolpercentage = (this.totalallcolrequestedFromSentara / this.totalallcolBudget) * 100;
     }
     @api
     gettotalValues(){

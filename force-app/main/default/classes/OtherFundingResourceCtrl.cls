@@ -248,15 +248,23 @@ public with sharing class OtherFundingResourceCtrl {
         return conDocList[0].Id;
     }
     
-    public static String sendEmail(){
+    public static String sendEmail(String recId){
         String rtnStr = '';
         User currentUser = [SELECT Email FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1];
+         EmailTemplate tem = [SELECT Id, Subject,Body FROM EmailTemplate WHERE Developername = 'Test_Email'];
         if(currentUser.Email != null){
             List<String> toAddresses = new List<String>{currentUser.Email};
-                Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+            Messaging.SingleEmailMessage emailTem = Messaging.renderStoredEmailTemplate(String.valueOf(tem.Id), null, recId);
+            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
             email.setToAddresses(toAddresses);
-            email.setSubject('Application successfully Created');
-            email.setPlainTextBody('your Grant Application is submitted please review your application in the portal. Thank you');
+            email.setWhatId(recId);
+            //email.setTargetObjectId(recId);
+            email.setTemplateId(tem.Id);
+            email.setSubject(tem.Subject);
+            email.setPlainTextBody(emailTem.getPlainTextBody());
+            email.setSaveAsActivity(true);
+            //email.setSubject('Application successfully Created');
+            //email.setPlainTextBody('your Grant Application is submitted please review your application in the portal. Thank you');
             Messaging.SendEmailResult[] results = Messaging.sendEmail(new Messaging.SingleEmailMessage[]{email});
             if (results[0].isSuccess()) {
                 rtnStr = 'Success';
