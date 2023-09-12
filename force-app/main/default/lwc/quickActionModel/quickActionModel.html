@@ -1,0 +1,11 @@
+<template>
+    <lightning-quick-action-panel header="Account Datatable ">
+            <template if:true={accList}>
+                <lightning-datatable data={accList} columns={columns} key-field="Id">
+                </lightning-datatable>
+            </template>
+            <template if:true={error}>
+                {error}
+            </template>
+    </lightning-quick-action-panel>
+</template>

@@ -1,0 +1,3 @@
+<design:component >
+    <design:attribute name="fieldSetName" label="Fieldset Name" description="Enter the API name of the fieldset" />
+</design:component>

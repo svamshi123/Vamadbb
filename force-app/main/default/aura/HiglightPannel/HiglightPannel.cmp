@@ -1,0 +1,49 @@
+<aura:component controller="HighlightPanelController" implements="flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,force:hasSObjectName" access="global">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="objectLabel" type="String" />
+    <!-- Create a field Set on the object and provide the fields that you want to display on panel-->
+    <!--provide the field Set API name when you put the cmp from the right side of your App Builder-->
+    <aura:attribute name="fieldSetName" type="String" access="global"></aura:attribute>
+    <aura:attribute name='fieldsAPI' type="String[]" access="global"/>
+    <aura:attribute name="nameField" type="String" />
+    <aura:attribute name="icoName" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <div class="slds-page-header slds-page-header_record-home">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <lightning:icon iconName="{!v.icoName}" size="medium" alternativeText="{!v.objectLabel}"></lightning:icon>
+                    </div>
+                    <div class="slds-media__body" style="line-height: 13px;">
+                        <span>{!v.objectLabel}</span>
+                        <span class="slds-page-header__title slds-truncate" title="{!v.nameField}">{!v.nameField}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-page-header__col-actions">
+                <div class="slds-page-header__controls">
+                    <div class="slds-page-header__control">
+                        <lightning:button label="Test" onclick="{!c.gotoURL}"></lightning:button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-page-header__row slds-page-header__row_gutters">
+            <div class="slds-page-header__col-details">
+                <lightning:recordEditForm recordId="{!v.recordId}" objectApiName="{!v.sObjectName}">
+                    <ul class="slds-page-header__detail-row" style="padding-left: 12px;">
+                        <aura:iteration items="{!v.fieldsAPI}" var="item">
+                            <li class="slds-page-header__detail-block">
+                                <lightning:outputField fieldName="{!item}" style="padding:0;"/> 
+                            </li>
+                        </aura:iteration>
+                     </ul>
+                </lightning:recordEditForm>
+            </div>
+        </div>
+    </div>        
+</aura:component>	
