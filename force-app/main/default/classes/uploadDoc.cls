@@ -1,27 +1,5 @@
 public with sharing class uploadDoc {
-    // @AuraEnabled
-    // public static List<ObjectWrapper> getDoc_Cate_PicklistValues() {
-    //     List<Schema.PicklistEntry> entries = ContentVersion.Document_Category__c.getDescribe().getPickListValues();
-    //     List<ObjectWrapper> docCategoryEntries = new List<ObjectWrapper>();
-    //     for (Schema.PicklistEntry entry : entries) {
-    //         if (entry.isActive()) {
-    //             docCategoryEntries.add(new ObjectWrapper(String.valueOf(entry.getlabel()),String.valueOf(entry.getValue())));
-    //         }
-    //     }
-    //     return docCategoryEntries;
-    // }
 
-    // @AuraEnabled
-    // public static List<ObjectWrapper> getDoc_SUb_Cate_PicklistValues() {
-    //     List<Schema.PicklistEntry> entries = ContentVersion.Document_SubCategory__c.getDescribe().getPickListValues();
-    //     List<ObjectWrapper> docSubCategoryEntries = new List<ObjectWrapper>();
-    //     for (Schema.PicklistEntry entry : entries) {
-    //         if (entry.isActive()) {
-    //             docSubCategoryEntries.add(new ObjectWrapper(String.valueOf(entry.getlabel()),String.valueOf(entry.getValue())));
-    //         }
-    //     }
-    //     return docSubCategoryEntries;
-    // }
     @AuraEnabled
     public static string fetchAccountId(String recId){
         try {
@@ -74,24 +52,6 @@ public with sharing class uploadDoc {
             throw new AuraHandledException(e.getMessage());
         }
     }
-    // @AuraEnabled
-    // public static string UpdatetheContentVersion(String objString,String parentRecord){
-    //     try {
-    //         List<ObjectWrapper> objectList = (List<ObjectWrapper>) JSON.deserialize(objString,List<ObjectWrapper>.class);
-    //         List<ContentVersion> updateConVerList = new List<ContentVersion>();
-    //         for(ObjectWrapper str : objectList){
-    //             ContentVersion conver = new ContentVersion();
-    //             conver.Id = (Id)str.contentVersionId;
-    //             conver.Document_Category__c = str.docCatagory;
-    //             conver.Document_SubCategory__c = str.docSubCatagory;
-    //             updateConVerList.add(conver);
-    //         }
-    //         update updateConVerList;
-    //         return 'success';
-    //     } catch (Exception e) {
-    //         throw new AuraHandledException(e.getMessage());
-    //     }
-    // }
     @AuraEnabled
     public static String getDocuments(String accId){
         Map<String,List<ContentDocumentLink>> typeDocMap = new Map<String,List<ContentDocumentLink>>();
@@ -158,50 +118,14 @@ public with sharing class uploadDoc {
 
         return conDocList[0].Id;
     }
-    // @AuraEnabled
-    // public static void UpdatetheContentVersion(Map<String,String> objectMap,String parentRecord){
-    //     try {
-    //         List<ContentDocumentLink> conDocList = getContentDoc(parentRecord);
-    //         Set<Id> contentDocId = new Set<Id>();
-    //         for(ContentDocumentLink conId : conDocList){
-    //             contentDocId.add(conId.ContentDocumentId);
-    //         }
-    //         Map<Id,Id> conVerWithConDocId = new Map<Id,Id>();
-    //         List<ContentVersion> conVerList = [SELECT Id, Document_Category__c,Document_SubCategory__c,ContentDocumentId
-    //                                             FROM ContentVersion 
-    //                                             WHERE ContentDocumentId IN: contentDocId];
-    //          for(ContentVersion conVerId : conVerList){
-    //             conVerWithConDocId.put(conVerId.ContentDocumentId,conVerId.Id);
-    //          }
-    //          List<ContentVersion> updateConVerList = new List<ContentVersion>();
-    //          for(ContentVersion conVerId : conVerList){
-    //             if(objectMap.containsKey(conVerId.ContentDocumentId)){
-    //                 ContentVersion conver = new ContentVersion();
-    //                 conver.Id = conVerWithConDocId.get(objectMap.get(conVerId.ContentDocumentId));
-    //                 conver.Document_Category__c = objectMap.get('docCatagory');
-    //                 conver.Document_SubCategory__c = objectMap.get('docSubCatagory');
-    //                 updateConVerList.add(conver);
-    //             }
-    //         }
-    //         update updateConVerList;
-    //     } catch (Exception e) {
-    //         throw new AuraHandledException(e.getMessage());
-    //     }
-    // }
+
 
     public static List<ContentDocumentLink> getContentDoc(String parId){
         return [SELECT ContentDocumentId, ContentDocument.Title, ContentDocument.ContentSize 
         FROM ContentDocumentLink
         WHERE LinkedEntityId =: parId];
     }
-    public class ObjectWrapper{
-        @AuraEnabled
-        public string contentVersionId;
-        @AuraEnabled
-        public string docSubCatagory;
-        @AuraEnabled
-        public string docCatagory;
-    }
+   
     public class FileInfo {  
         @AuraEnabled
         public string docId;  

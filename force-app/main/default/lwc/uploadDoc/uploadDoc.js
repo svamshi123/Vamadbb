@@ -4,11 +4,10 @@ import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 
 import OBJECTA_OBJECT from '@salesforce/schema/ContentVersion';
 import DOCUMENT_CATAGORY from '@salesforce/schema/ContentVersion.Document_Category__c'; 
-import DOCUMENT_SUBCATAGORY from '@salesforce/schema/ContentVersion.Document_SubCategory__c'; 
+// import DOCUMENT_SUBCATAGORY from '@salesforce/schema/ContentVersion.Document_SubCategory__c'; 
 
 import getDocumentsByParId from '@salesforce/apex/uploadDoc.getDocuments';
 import fetchAccountId from '@salesforce/apex/uploadDoc.fetchAccountId';
-import UpdatetheContentVersionValues from '@salesforce/apex/uploadDoc.UpdatetheContentVersion';
 import deleteSingleAttachment from '@salesforce/apex/uploadDoc.deleteSingleAttachment';
 import createFile from '@salesforce/apex/uploadDoc.createFile';
 
@@ -16,6 +15,7 @@ export default class UploadDoc extends LightningElement {
     @api eotRecord;
     docCategorypicvalues;
     subDocCategorypicvalues;
+    subCategoryValues;
     error;
     labelName = 'Upload the Document';
     parentRecord 
@@ -24,7 +24,6 @@ export default class UploadDoc extends LightningElement {
     @track rows = [];
     @track fileuploaded =[];
     @track filesUploaded = [];
-
 
     @wire(getObjectInfo, { objectApiName: OBJECTA_OBJECT })
     objectInfo;
@@ -41,17 +40,17 @@ export default class UploadDoc extends LightningElement {
         }
     }
 
-    @wire(getPicklistValues, { recordTypeId: '$objectInfo.data.defaultRecordTypeId', fieldApiName: DOCUMENT_SUBCATAGORY })
-    subCatagoryPicklistValues({ data, error }) {
-        if (data) {
-            this.subDocCategorypicvalues = data.values;
-            this.error = undefined;
-        }
-        if (error) {
-            this.error = error;
-            this.subDocCategorypicvalues = undefined;
-        }
-    }
+    // @wire(getPicklistValues, { recordTypeId: '$objectInfo.data.defaultRecordTypeId', fieldApiName: DOCUMENT_SUBCATAGORY })
+    // subCatagoryPicklistValues({ data, error }) {
+    //     if (data) {
+    //         this.subCategoryValues = data;
+    //         this.error = undefined;
+    //     }
+    //     if (error) {
+    //         this.error = error;
+    //         this.subCategoryValues = undefined;
+    //     }
+    // }
 
     connectedCallback(){
         // this.getDocCategory();
@@ -59,14 +58,16 @@ export default class UploadDoc extends LightningElement {
         this.getAccountId();
         if(this.rows.length === 0){
             this.rows.push({
-                Id: 0
+                Id: 0,
+                controledValue: '',
+                contentVersionInfo:''
             });
         }
     }
 
     addRow() {
         let rowId = this.rows.length;
-        this.rows.push({ Id: rowId});
+        this.rows.push({ Id: rowId,controledValue:'',contentVersionInfo:''});
     }
     getAccountId(){
         fetchAccountId({recId:this.eotRecord}).then((data) =>{
@@ -95,16 +96,19 @@ export default class UploadDoc extends LightningElement {
 
     handleCatagory(event){
         this.docCategoryValue = event.target.value;
-        // let rowId = event.target.dataset.id;
-        // let rowIndex = this.rows.findIndex((row) => row.Id == rowId);
-        // this.rows[rowIndex]['docCatagory'] = this.docCategoryValue;
+        // let key = this.subCategoryValues.controllerValues[event.target.value];
+        // this.subDocCategorypicvalues = this.subCategoryValues.values.filter(opt => opt.validFor.includes(key));
+        let rowId = event.target.dataset.id;
+        let rowIndex = this.rows.findIndex((row) => row.Id == rowId);
+        this.rows[rowIndex]['controledValue'] = this.docCategoryValue;
+        this.rows[rowIndex]['docCategory'] = this.docCategoryValue;
     }
 
-    handleSubCatagory(event){
-        this.docSubCategoryValue = event.target.value;
-        // let rowId = event.target.dataset.id;
-        // let rowIndex = this.rows.findIndex((row) => row.Id == rowId);
-        // this.rows[rowIndex]['docSubCatagory'] = this.docSubCategoryValue;
+    handleSelectedSubCategory(event){
+        this.docSubCategoryValue = event.detail.selectedSubCategory;
+        let rowId = event.detail.rowId;
+        let rowIndex = this.rows.findIndex((row) => row.Id == rowId);
+        this.rows[rowIndex]['docSubCategory'] = this.docSubCategoryValue;
     }
 
     
@@ -119,15 +123,23 @@ export default class UploadDoc extends LightningElement {
             let content = reader.result.indexOf(base64) + base64.length;
             fileContents = reader.result.substring(content);
             this.filesUploaded.push({
+                rowIndex : rowIndex,
                 fileTitle: file.name, 
                 fileData: fileContents,
-                docCategory:this.docCategoryValue,
-                docSubCategory:this.docSubCategoryValue,
+                docCategory: this.docCategoryValue,
+                docSubCategory: this.docSubCategoryValue
             });
-            this.rows[rowIndex]['contentVersionInfo'] = this.filesUploaded;
+            this.rows[rowIndex]['fileTitle'] = file.name;
+            this.rows[rowIndex]['fileData'] = fileContents;
+            //this.rows[rowIndex]['contentVersionInfo'] = this.filesUploaded[rowIndex];
         };
         reader.readAsDataURL(file);
     }
+
+    handleDelete(){
+
+    }
+    
     getDocuments(){
         getDocumentsByParId({accId: this.parentRecord}).then((data) =>{
             if(data !== null ){
@@ -165,13 +177,14 @@ export default class UploadDoc extends LightningElement {
     }        
 
     handleSaveAndProceed(){
-        console.log('rows'+JSON.stringify(this.rows[this.rows.length - 1].contentVersionInfo));
-        this.UpdatetheContentVersion(this.rows[this.rows.length - 1].contentVersionInfo);
+        console.log('rows '+JSON.stringify(this.rows));
+        //console.log('contentVersionInfo'+JSON.stringify(this.rows[this.rows.length - 1].contentVersionInfo));
+        this.UpdatetheContentVersion(this.rows);
     }
     
     UpdatetheContentVersion(obj){
         createFile({objString:JSON.stringify(obj),parentRecord:this.parentRecord}).then((data) =>{
-            this.dispatchEvent(new CustomEvent('nextstage', {'detail' : {'currentScreen':'uploadDocuments'}}));
+            //this.dispatchEvent(new CustomEvent('nextstage', {'detail' : {'currentScreen':'uploadDocuments'}}));
             console.log({data});
         }).catch((error) =>{
             console.log({error});

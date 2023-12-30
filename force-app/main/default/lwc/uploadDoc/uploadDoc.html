@@ -26,8 +26,15 @@
                                 <td class="slds-cell-wrap">
                                     <div class="slds-grid slds-gutters">
                                         <div class="slds-col">
-                                            <lightning-combobox label="Document Sub-Category" options={subDocCategorypicvalues} onchange={handleSubCatagory} data-id={row.Id}>
-                                            </lightning-combobox>
+                                            <template lwc:if={row.controledValue}>
+                                                <c-lightning-combo-box combo-lable="Document Sub-Category" combo-data-id={row.Id}
+                                                combo-control-val={row.controledValue} combo-dependent-field={DOCUMENT_SUBCATAGORY} 
+                                                combo-object-info={OBJECTA_OBJECT} onselected={handleSelectedSubCategory}></c-lightning-combo-box>
+                                            </template>
+                                            <template lwc:else >
+                                                <lightning-combobox label="Document Sub-Category" options={subDocCategorypicvalues} onchange={handleSubCatagory} data-id={row.Id} disabled>
+                                                </lightning-combobox>
+                                            </template>
                                         </div>
                                     </div>
                                 </td>
@@ -40,8 +47,16 @@
                                                 data-id={row.Id}>
                                             </lightning-input>
                                             <template for:each={filesUploaded} for:item="file">
-                                                <div key={file.title} class="slds-text-body_small">{file.title}</div>
+                                                <div key={file.fileTitle} class="slds-text-body_small">{file.fileTitle}</div>
                                             </template>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap">
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col">
+                                            <lightning-button-icon  icon-name="utility:delete" class="declined" data-id={row.Id} onclick={handleDelete}
+                                            size="medium"></lightning-button-icon>
                                         </div>
                                     </div>
                                 </td>
