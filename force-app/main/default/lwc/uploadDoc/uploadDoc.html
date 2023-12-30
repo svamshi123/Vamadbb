@@ -1,0 +1,89 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_10-of-12">
+                </div>
+                <div class="slds-col slds-size_1-of-12">
+                    <button class="slds-button slds-text-align_right slds-button_brand" onclick={addRow}>Add</button>
+                </div>
+            </div>
+        </div>
+        <lightning-layout multiple-rows="true" class="slds-form-element">
+            <lightning-layout-item size="12" flexibility="auto">
+                <table class="slds-table" style="table-layout: fixed;">
+                    <tbody>
+                        <template for:each={rows} for:item="row">
+                            <tr key={row.Id}>
+                                <td class="slds-cell-wrap">
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col">
+                                            <lightning-combobox label="Document Category" options={docCategorypicvalues} onchange={handleCatagory} data-id={row.Id}>
+                                            </lightning-combobox>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap">
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col">
+                                            <lightning-combobox label="Document Sub-Category" options={subDocCategorypicvalues} onchange={handleSubCatagory} data-id={row.Id}>
+                                            </lightning-combobox>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="slds-cell-wrap">
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col">
+                                            <lightning-input type="file"
+                                                label={labelName}
+                                                onchange={handleFileUploaded}
+                                                data-id={row.Id}>
+                                            </lightning-input>
+                                            <template for:each={filesUploaded} for:item="file">
+                                                <div key={file.title} class="slds-text-body_small">{file.title}</div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>  
+            </lightning-layout-item>
+        </lightning-layout><br/>
+        <div class="slds-p-around_medium">
+            <div class="slds-grid slds-wrap slds-p-vertical_medium">
+                <lightning-button label="Back" variant="" class="" onclick={handleBack}></lightning-button>
+                <lightning-button label="Save &amp; Proceed" variant="" class="slds-m-left_small" onclick={handleSaveAndProceed}></lightning-button>
+            </div>
+        </div>
+        <!-- <div class="slds-p-around_medium">
+            <div class="slds-grid">
+                <div class="slds-col slds-size_2-of-4">
+                    <div class="slds-col slds-size_3-of-4">
+                        <lightning-combobox label="Document Category" options={docCategorypicvalues} onchange={handleCatagory}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_2-of-4">
+                    <div class="slds-col slds-size_3-of-4">
+                        <lightning-combobox label="Document Sub-Category" options={subDocCategorypicvalues} onchange={handleSubCatagory}>
+                        </lightning-combobox>
+                    </div>
+                </div>
+            </div><br/>
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-file-upload
+                        label={labelName}
+                        name="fileUploader"
+                        record-id={parentRecord}
+                        onuploadfinished={handleUploadFinished}
+                        multiple>
+                    </lightning-file-upload>
+                </div>
+            </div>
+        </div> -->
+    </lightning-card>
+    
+</template>
