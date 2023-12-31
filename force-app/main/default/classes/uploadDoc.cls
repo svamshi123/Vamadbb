@@ -27,112 +27,30 @@ public with sharing class uploadDoc {
                 createConVerList.add(aContentVersion);
             }
             System.debug('createConVerList before'+createConVerList);
-        //    insert createConVerList;
-        //     System.debug('createConVerList after'+createConVerList);
-        //     List<ContentVersion> insertedContentVersion = [
-        //         SELECT Id,ContentDocumentId
-        //         FROM ContentVersion
-        //         WHERE Id IN :createConVerList
-        //     ];
-        //     System.debug('ContentDocumentId '+createConVerList);
-        //      Map<Id,Id> conVerwithConTDocIdMap = new Map<Id,Id>();
-        //     for(ContentVersion conVer : insertedContentVersion){
-        //         conVerwithConTDocIdMap.put(conVer.Id,conVer.ContentDocumentId);
-        //     }
+            // insert createConVerList;
+            // System.debug('createConVerList after'+createConVerList);
+            // List<ContentVersion> insertedContentVersion = [
+            //     SELECT Id,ContentDocumentId
+            //     FROM ContentVersion
+            //     WHERE Id IN :createConVerList
+            // ];
+            // System.debug('ContentDocumentId '+createConVerList);
+            // Map<Id,Id> conVerwithConTDocIdMap = new Map<Id,Id>();
+            // for(ContentVersion conVer : insertedContentVersion){
+            //     conVerwithConTDocIdMap.put(conVer.Id,conVer.ContentDocumentId);
+            // }
 
-        //     for(ContentVersion conObject : insertedContentVersion){
-        //         ContentDocumentLink aContentDocumentLink = new ContentDocumentLink();
-        //         aContentDocumentLink.ContentDocumentId = conVerwithConTDocIdMap.get(conObject.Id);
-        //         aContentDocumentLink.LinkedEntityId = parentRecord;
-        //         createContentDocumentLinkList.add(aContentDocumentLink);
-        //     }
-        //     insert createContentDocumentLinkList;
+            // for(ContentVersion conObject : insertedContentVersion){
+            //     ContentDocumentLink aContentDocumentLink = new ContentDocumentLink();
+            //     aContentDocumentLink.ContentDocumentId = conVerwithConTDocIdMap.get(conObject.Id);
+            //     aContentDocumentLink.LinkedEntityId = parentRecord;
+            //     createContentDocumentLinkList.add(aContentDocumentLink);
+            // }
+            // insert createContentDocumentLinkList;
             return createContentDocumentLinkList;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
-    }
-    @AuraEnabled
-    public static String getDocuments(String accId){
-        Map<String,List<ContentDocumentLink>> typeDocMap = new Map<String,List<ContentDocumentLink>>();
-        List<ContentDocumentLink> docList = getContentDoc(accId);
-        List<FileInfo> fileList = getCompressDo(docList);
-        String fileJSON = JSON.serialize(fileList);
-        return fileJSON;
-    }
-
-    public static list<FileInfo> getCompressDo(List<ContentDocumentLink> contentDocList){
-        list<FileInfo> fileList = new list<FileInfo>();  
-        if(contentDocList != null && !contentDocList.isEmpty()){
-            for(ContentDocumentLink conlink: contentDocList){
-                FileInfo fileData = new FileInfo();
-                fileData.docId = conlink.ContentDocumentId;
-                fileData.Title = conlink.ContentDocument.Title;           
-                fileData.size = FileSizeToString(conlink.ContentDocument.ContentSize);
-                fileList.add(fileData);
-            }
-        } 
-        return fileList;
-    }
-
-    public static String FileSizeToString(Long Value){
-        if (Value < 1024){
-            return string.valueOf(Value) + ' Bytes';
-        }else if (Value >= 1024 && Value < (1024*1024)) {
-            //KB
-            Decimal kb = Decimal.valueOf(Value);
-            kb = kb.divide(1024,2);
-            return string.valueOf(kb) + ' KB';
-        }
-        else if (Value >= (1024*1024) && Value < (1024*1024*1024)){
-            //MB
-            Decimal mb = Decimal.valueOf(Value);
-            mb = mb.divide((1024*1024),2);
-            return string.valueOf(mb) + ' MB';
-        }
-        else{
-            //GB
-            Decimal gb = Decimal.valueOf(Value);
-            gb = gb.divide((1024*1024*1024),2);  
-            return string.valueOf(gb) + ' GB';
-        }    
-    }    
-
-    @AuraEnabled
-    public static string deleteSingleAttachment(string attchmentID){
-        Set<id> setIDs = new Set<id>();
-        Set<Id> parSetId = new Set<Id>();
-        List<ContentDocumentLink> contentDocLinkList = [SELECT Id,ContentDocumentId, LinkedEntityId FROM ContentDocumentLink where ContentDocumentId =: attchmentID];
-        for(ContentDocumentLink conlink: contentDocLinkList){
-            setIDs.add(conlink.ContentDocumentId);
-            parSetId.add(conlink.LinkedEntityId);
-        }
-        List<Documents__c> docToDelete = [SELECT Id from Documents__c where ID IN: parSetId];
-        if(docToDelete != null){
-            delete docToDelete;
-        }
-        List<ContentDocument> conDocList = [SELECT Id,IsDeleted,Title,Description FROM ContentDocument WHERE Id IN :setIDs AND IsDeleted = false];
-        if(conDocList != null && conDocList.size()>0){
-            delete conDocList;
-        }
-
-        return conDocList[0].Id;
-    }
-
-
-    public static List<ContentDocumentLink> getContentDoc(String parId){
-        return [SELECT ContentDocumentId, ContentDocument.Title, ContentDocument.ContentSize 
-        FROM ContentDocumentLink
-        WHERE LinkedEntityId =: parId];
-    }
-   
-    public class FileInfo {  
-        @AuraEnabled
-        public string docId;  
-        @AuraEnabled 
-        public String Title;
-        @AuraEnabled
-        public string Size;
     }
 
     public class ObjectContentVersionWrapper{

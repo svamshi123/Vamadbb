@@ -1,6 +1,7 @@
 import { LightningElement,api,wire } from 'lwc';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import { refreshApex } from '@salesforce/apex';
 
 import OBJECTA_OBJECT from '@salesforce/schema/ContentVersion';
 import DOCUMENT_SUBCATAGORY from '@salesforce/schema/ContentVersion.Document_SubCategory__c'; 
@@ -40,4 +41,16 @@ export default class LightningComboBox extends LightningElement {
         }});
         this.dispatchEvent(selectedEvent);
     }
+
+    // @api fetchDependentPickListValues(controlVal,rowIndex){
+    //     console.log('this 46 => ' +rowIndex);
+    //     let key = this.dependentPickListValues.controllerValues[controlVal];
+    //     console.log('this 48 => '+ key);
+    //     if(this.template.querySelector(`[data-id="${rowIndex}"]`).options ){
+    //         console.log('this 50');
+    //         this.template.querySelector(`[data-id="${rowIndex}"]`).options = this.dependentPickListValues.values.filter(opt => opt.validFor.includes(key));
+    //     }
+    //     console.log('this 53');
+        
+    // }
 }

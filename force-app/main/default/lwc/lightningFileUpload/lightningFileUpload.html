@@ -1,0 +1,33 @@
+<template>
+    <lightning-input type="file"
+    label={labelName}
+    onchange={handleFileUploaded}
+    data-id={fileRowId}>
+</lightning-input>
+<template lwc:if={isfileUploded}>
+    <div class="slds-p-around_medium">
+        <table class="slds-table">
+            <thead>
+                <tr class="slds-line-height_reset" >
+                    <template for:each={columnData} for:item="column">
+                        <th key={column.fieldName} scope="col">
+                            <div class="slds-truncate " title={column.label}>
+                                <lightning-formatted-rich-text value={column.label}></lightning-formatted-rich-text>
+                            </div>
+                        </th>
+                    </template>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={rows} for:item="row">
+                    <tr key={row.Id}>
+                        <td class="slds-truncate ">{row.docCategory}</td>
+                        <td class="slds-truncate ">{row.docSubCategory}</td>
+                        <td class="slds-truncate ">{row.fileTitle}</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+</template>
+</template>

@@ -1,0 +1,7 @@
+.tdClass{
+    padding:0;
+    vertical-align: middle;
+}
+.declined{
+    --sds-c-icon-color-foreground-default: red;
+}
