@@ -11,6 +11,20 @@ public with sharing class uploadDoc {
     }
 
     @AuraEnabled
+    public static List<ObjectWrapper> getDocCategoryPicklistValues() {
+        List<Schema.PicklistEntry> entries = ContentVersion.Document_Category__c.getDescribe().getPickListValues();
+        List<ObjectWrapper> docCategoryEntries = new List<ObjectWrapper>();
+        for (Schema.PicklistEntry entry : entries) {
+            if (entry.isActive()) {
+                docCategoryEntries.add(new ObjectWrapper(
+                    String.valueOf(entry.getlabel()),String.valueOf(entry.getValue())
+                ));
+            }
+        }
+        return docCategoryEntries;
+    }
+
+    @AuraEnabled
     public static List<ContentDocumentLink> createFile(String objString,String parentRecord){
         try {
             List<ObjectContentVersionWrapper> objectList = (List<ObjectContentVersionWrapper>) JSON.deserialize(objString,List<ObjectContentVersionWrapper>.class);
@@ -50,6 +64,18 @@ public with sharing class uploadDoc {
             return createContentDocumentLinkList;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    public class ObjectWrapper {
+        @AuraEnabled
+        public string label;
+        @AuraEnabled
+        public string value;
+
+        public ObjectWrapper(String label,String value){
+            this.label = label;
+            this.value = value;
         }
     }
 

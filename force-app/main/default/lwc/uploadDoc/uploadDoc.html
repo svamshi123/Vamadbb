@@ -16,47 +16,32 @@
                         <template for:each={rows} for:item="row">
                             <tr key={row.Id}>
                                 <td class="slds-cell-wrap">
-                                    <div class="slds-grid slds-gutters">
-                                        <div class="slds-col">
-                                            <lightning-combobox label="Document Category" options={docCategorypicvalues} onchange={handleCatagory} data-id={row.Id}>
-                                            </lightning-combobox>
-                                        </div>
-                                    </div>
+                                    <c-dependent-picklist-component 
+                                        data-id={row.Id} 
+                                        picklist-row-id={row.Id} controller-field-label="Document Category" 
+                                        dependent-field-label="Document Sub-Category" 
+                                        onselectedvalues={handleSelectedValues}>
+                                    </c-dependent-picklist-component>
                                 </td>
                                 <td class="slds-cell-wrap">
-                                    <div class="slds-grid slds-gutters">
-                                        <div class="slds-col">
-                                            <template lwc:if={row.controledValue}>
-                                                <c-lightning-combo-box combo-lable="Document Sub-Category" combo-data-id={row.Id}
-                                                combo-control-val={row.controledValue} combo-dependent-field={DOCUMENT_SUBCATAGORY} 
-                                                combo-object-info={OBJECTA_OBJECT} onselected={handleSelectedSubCategory}></c-lightning-combo-box>
-                                            </template>
-                                            <template lwc:else>
-                                                <lightning-combobox label="Document Sub-Category" options={subDocCategorypicvalues} onchange={handleSubCatagory} data-id={row.Id} disabled>
-                                                </lightning-combobox>
-                                            </template>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="slds-cell-wrap">
-                                    <div class="slds-grid slds-gutters">
-                                        <div class="slds-col">
+                                    <div class="slds-grid">
+                                        <div class="slds-size_2-of-4">
+                                            <label class="slds-form-element__label" for="text-input-id-1">
+                                                <abbr class="slds-required" title="required">*</abbr>{labelName}
+                                            </label>
                                             <lightning-input type="file"
-                                                label={labelName}
+                                                variant="label-hidden"
                                                 onchange={handleFileUploaded}
-                                                data-id={row.Id} required>
+                                                data-id={row.Id}>
                                             </lightning-input>
                                             <div lwc:if={row.isfileUploded}>
-                                                <div class="slds-box slds-theme_shade slds-clearfix slds-box_xx-small slds-m-vertical_xxx-small">                        
+                                                <!-- <div class="slds-box slds-theme_shade slds-clearfix slds-box_xx-small slds-m-vertical_xxx-small">                         -->
                                                     <p><a>{row.fileTitle}</a></p>
-                                                </div>  
+                                                <!-- </div>   -->
                                             </div>
                                         </div>                                         
-                                    </div>
-                                </td>
-                                <td class="slds-cell-wrap tdClass">
-                                    <div class="slds-grid slds-gutters">
-                                        <div class="slds-col"><br/>
+                                        <div class="slds-size_2-of-4">
+                                            <br/>
                                             <lightning-button-icon  icon-name="utility:delete" class="declined" data-id={row.Id} onclick={handleDelete}
                                             size="medium"></lightning-button-icon>
                                         </div>
@@ -75,4 +60,14 @@
             </div>
         </div>
     </lightning-card>
+    <!-- DependentPicklistComponent -->
+    <!-- Spinner Start -->
+    <div class="slds-spinner_container">
+        <div role="status" class="slds-spinner slds-spinner_medium">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+    <!-- Spinner End -->
 </template>
