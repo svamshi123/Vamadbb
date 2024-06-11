@@ -10,4 +10,8 @@ export default class Publisher extends LightningElement {
 		habdleMessage(){
 				publish(this.messageContext, messageChannel, { recordId: this.recordId });
 		}
+
+		closeWindow(){
+			window.close();
+		}
 }
