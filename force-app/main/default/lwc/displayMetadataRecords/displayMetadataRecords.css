@@ -1,0 +1,6 @@
+.greenBackGround{
+    --sds-c-icon-color-foreground-default : green !important;
+}
+.redBackGround{
+    --sds-c-icon-color-foreground-default : red !important;
+}

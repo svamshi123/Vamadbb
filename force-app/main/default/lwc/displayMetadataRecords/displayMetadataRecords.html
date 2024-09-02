@@ -1,0 +1,115 @@
+<template>
+    <lightning-card>
+        <div class="slds-grid slds-gutters slds-wrap">
+            <div class="slds-col slds-size_1-of-2">
+                <div class="slds-p-around_medium">
+                    <template for:each={metaDataRecords} for:item="mdtrec">
+                        <div key={mdtrec.parentMetaRecId}>
+                            <template lwc:if={mdtrec.showParentAddIcon}>
+                                <div data-id={mdtrec.parentMetaRecId} onclick={handleJumpToChildRecords} class="slds-box slds-box_x-small slds-theme_default" >
+                                    <div class="slds-clearfix">
+                                        <div class="slds-float_left">
+                                            <p><b>{mdtrec.parentMetaLabel}</b></p>
+                                            <p>{mdtrec.parentMetaDesc}</p>
+                                        </div>
+                                        <div class="slds-float_right">
+                                            <p><lightning-icon class="greenBackGround" icon-name="utility:jump_to_right" alternative-text="Jump To Right" title="Jump To Right"></lightning-icon></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <template lwc:elseif={mdtrec.showParentRemoveIcon}>
+                                <div data-id={mdtrec.parentMetaRecId} onclick={handleClose} class="slds-box slds-box_x-small slds-theme_shade" >
+                                    <div class="slds-clearfix">
+                                        <div class="slds-float_left">
+                                            <p><b>{mdtrec.parentMetaLabel}</b></p>
+                                            <p>{mdtrec.parentMetaDesc}</p>
+                                        </div>
+                                        <div class="slds-float_right">
+                                            <p><lightning-icon class="redBackGround" icon-name="utility:close" alternative-text="Close" title="Close"></lightning-icon></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <!-- <div data-id={mdtrec.parentMetaRecId} class="slds-box slds-box_x-small" >
+                                <div class="slds-clearfix">
+                                    <div class="slds-float_left">
+                                        <p><b>{mdtrec.parentMetaLabel}</b></p>
+                                        <p>{mdtrec.parentMetaDesc}</p>
+                                    </div>
+                                    <div class="slds-float_right">
+                                        <p if:true={mdtrec.showParentAddIcon}> <lightning-icon icon-name="utility:jump_to_right" alternative-text="Jump To Right" title="Jump To Right"
+                                            data-id={mdtrec.parentMetaRecId} onclick={handleJumpToChildRecords}></lightning-icon></p>
+                                        <p if:true={mdtrec.showParentRemoveIcon}> <lightning-icon icon-name="utility:close" alternative-text="Close" title="Close"
+                                            data-id={mdtrec.parentMetaRecId} onclick={handleClose}></lightning-icon></p>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <div class="slds-p-around_medium">
+                    <template for:each={childMedataRecords} for:item="mdtchildrec">
+                        <div key={mdtchildrec.childMetaRecId}>
+                            <template lwc:if={mdtchildrec.showChildAddIcon}>
+                                <div data-id={mdtchildrec.childMetaRecId} onclick={handleAddChildRecords} class="slds-box slds-box_x-small slds-theme_default" >
+                                    <div class="slds-clearfix">
+                                        <div class="slds-float_left">
+                                            <p><b>{mdtchildrec.childMetaLabel}</b></p>
+                                            <p>{mdtchildrec.childMetaDesc}</p>
+                                        </div>
+                                        <div class="slds-float_right">
+                                            <p><lightning-icon class="greenBackGround" icon-name="utility:add" alternative-text="Add" title="Add"></lightning-icon></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <template lwc:elseif={mdtchildrec.showChildRemoveIcon}>
+                                <div data-id={mdtchildrec.childMetaRecId} onclick={handleChildClose} class="slds-box slds-box_x-small slds-theme_shade" >
+                                    <div class="slds-clearfix">
+                                        <div class="slds-float_left">
+                                            <p><b>{mdtchildrec.childMetaLabel}</b></p>
+                                            <p>{mdtchildrec.childMetaDesc}</p>
+                                        </div>
+                                        <div class="slds-float_right">
+                                            <p><lightning-icon class="redBackGround" icon-name="utility:close" alternative-text="Close" title="Close"></lightning-icon></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <!-- <div data-id={mdtchildrec.childMetaRecId} class="slds-box slds-box_x-small" >
+                                <div class="slds-clearfix">
+                                    <div class="slds-float_left">
+                                        <p><b>{mdtchildrec.childMetaLabel}</b></p>
+                                        <p>{mdtchildrec.childMetaDesc}</p>
+                                    </div>
+                                    <div class="slds-float_right">
+                                        <p if:true={mdtchildrec.showChildAddIcon}> <lightning-icon icon-name="utility:add" alternative-text="Add" title="Add"
+                                            data-id={mdtchildrec.childMetaRecId} onclick={handleAddChildRecords}></lightning-icon></p>
+                                        <p if:true={mdtchildrec.showChildRemoveIcon}> <lightning-icon icon-name="utility:close" alternative-text="Close" title="Close"
+                                            data-id={mdtchildrec.childMetaRecId} onclick={handleChildClose}></lightning-icon></p>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <div class="slds-align_absolute-center">
+            <lightning-button label="Save" variant="brand"  onclick={handleSave}></lightning-button>
+        </div>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12"
+                padding="around-small">
+                <template lwc:if={displayDilterdedMetadataRecords}>
+                    <div class="scroller">
+                        <pre>{displayDilterdedMetadataRecords}</pre>
+                    </div>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
