@@ -19,7 +19,22 @@ export default class DisplayMetadataRecords extends LightningElement {
 
     getRecords(){
         getMetaDataRecords().then((data) =>{
-            this.metaDataRecords = JSON.parse(data);
+            let filterdedMetadataRecords = [];
+            console.log('data => ' + JSON.stringify(JSON.parse(data)));
+            this.metaDataRecords = JSON.parse(data).map(parent => {
+                if (parent.parentMetaDefaultService === true) {
+                    const { childMetaDataList, ...parentWithoutChildren } = parent;
+                    this.filterdedMetadataRecords = parentWithoutChildren;
+                    this.childMedataRecords = this.childMedataRecords.concat(parent.childMetaDataList);
+                    return {
+                        ...parent,
+                        showParentAddIcon: false,
+                        showParentRemoveIcon: true
+                    };
+                }
+                return parent;
+            });
+
         }).catch((erorr) =>{
             this.error = error;
             console.log('erorr => ' + JSON.stringify(erorr));
